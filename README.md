@@ -25,6 +25,7 @@ Notes
 * I used JabRef to maintain my references.
 * Use ed_thesis.tex to build a pdf for paper submission with 1.5 line spacing.
 * Use nicepdfthesis.tex to build a pdf with hyperlinks.
+* The cascaded chapter folder structure is on purpose for building individual chapters.
 
 General advice
 =============
