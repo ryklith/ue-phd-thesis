@@ -1,0 +1,79 @@
+\chapter{Power Saving on the Network Level}
+\label{ch:network}
+
+\section{Overview}
+Chapter~\ref{ch:cell} proposed ...
+
+\section{Channel Allocation in Literature}
+\label{ch5:literature}
+Generally, ...
+
+\section{System Model and Problem Formulation}
+\label{ch5:problem}
+The network is considered as follows...
+
+\section{\ac{DTX} Alignment Strategies}
+\label{ch5:solutions}
+In this section, ...
+\subsection{Sequential Alignment}
+In \emph{sequential alignment}, ...
+
+
+\subsection{Random Alignment}
+\emph{Random alignment} ...
+\subsection{P-persistent Ranking}
+The synchronous alignment of uncoordinated \acp{BS} can lead to instabilities...
+
+\subsection{Distributed \ac{DTX} Alignment with Memory}
+Sample algorithm 
+
+\begin{algorithm}
+\caption{Distributed DTX alignment with memory}
+\label{ch5alg1}
+\begin{algorithmic}[1]
+\ENSURE {$\psi, \Upsilon_{\mathrm{u}}$}
+\STATE $Q \leftarrow $sort-desc-by-capacity$(\Upsilon)$
+\FORALL{$\upsilon$ in $\Upsilon_{\mathrm{u}}$}
+  \IF {$\psi (\upsilon) < \psi_{\mathrm{ul}}$}
+    \STATE $\psi(\upsilon) \leftarrow \psi(\upsilon) + 1$
+  \ENDIF
+\ENDFOR
+\FORALL{$\upsilon$ in $\Upsilon_{\mathrm{uu}} \backslash \{Q_0\}$}
+  \IF {$\psi (\upsilon) > \psi_{\mathrm{ll}}$}
+    \STATE $\psi(\upsilon) \leftarrow \psi(\upsilon) - 1$
+  \ENDIF
+\ENDFOR
+\STATE $\psi (Q_0) \leftarrow \psi(Q_0) + 1$
+\STATE $V \leftarrow $ sort-desc-by-score$(Q, \psi, \Upsilon)$
+\RETURN $\psi, V, \Upsilon_{\mathrm{u}}$
+\end{algorithmic}
+\end{algorithm}
+\nomenclature{$\psi$}{Scoring map, assigning scores to users}
+\nomenclature{$\Upsilon_{\mathrm{u}}, \Upsilon_{\mathrm{uu}}$}{Set of used/unused time slots, respectively}
+\nomenclature{$Q$}{Ranking tuple, time slots in order of capacity}
+\nomenclature{$\psi_{\mathrm{ul}}, \psi_{\mathrm{ll}}$}{Upper/lower limit of score, respectively}
+\nomenclature{$Q_0$}{Time slot with highest virtual capacity}
+\nomenclature{$V$}{Priority tuple, time slots in order of score}
+
+\section{Results}
+\label{ch5:results}
+This section ...
+\subsubsection{Simulation Environment and Resource Block Scheduling}
+The four strategies were tested ...
+\subsubsection{Power Consumption}
+To assess ...
+
+\subsubsection{Convergence}
+Another relevant aspect is ...
+
+\subsubsection{Reliability}
+An important aspect ...
+
+\subsubsection{Complexity}
+With regard to complexity...
+\subsubsection{Interpretation}
+...
+
+\section{Summary}
+\label{ch5:summary}
+In this chapter, ...

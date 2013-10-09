@@ -1,0 +1,90 @@
+\chapter{Power Saving on the Cell Level}
+\label{ch:cell}
+
+\section{Overview}
+As introduced in Chapter~\ref{ch:motivation}...
+
+\section{Power-saving \ac{RRM} in Literature}
+\label{ch4:literature}
+In literature, ...
+
+\section{\ac{PC} and \acs{TDMA}}
+\label{ch4:pctdma}
+
+When the number of bits transmitted ...
+
+Equation example
+\begin{equation}
+  A + B = C
+ \label{eq:OP}
+\end{equation}
+
+Subequation example
+\begin{subequations}
+\begin{align}
+& \underset{\mu, \nu}{\text{minimize}} 		& 	P_{\mathrm{supply}}(\overline{R}_k) 	&=  \left[ \sum_{k=1}^{K} \mu_k \left( P_0 + \Delta_{\mathrm{p}} \frac{P_{\mathrm{N}}}{G_k} \left( 2^\frac{\overline{R}_k}{W \mu_k} - 1 \right) \right) \right] + \nu P_{\mathrm{S}} \\
+& \text{subject to} 				& 	 \sum_{k=1}^{K} \mu_k + \nu &= 1 \,,\label{eq:OPnumu} \\
+& 						&	\nu 						&\ge 0,\label{eq:OPnu}\\
+&						&	\mu_k 						&\ge 0 \quad \forall\,k, \label{eq:OPmu}\\
+&						&	 0 \leq P_k 					&= \frac{P_{\mathrm{N}}}{G_k} \left( 2^{\frac{\overline{R}_k}{W \mu_k}} - 1 \right) \leq P_{\mathrm{max}} \quad \forall\,k.\label{eq:OPpmax}%
+\end{align}%
+\label{eq:OPJSAC}%
+\end{subequations}%
+
+
+\subsubsection{Power allocation on the link level}
+It follows a derivation of ...
+
+\subsubsection{Power allocation on the cell level}
+Next, an optimization problem is proposed which ...
+
+\subsubsection{Evaluation}
+Next, the affine power model is taken into account...
+
+\section{\ac{PRAIS}}
+\label{ch4:PRAIS}
+
+This section introduces the ...
+
+\subsubsection{Joint \ac{PC} and \ac{DTX}}
+When employing \ac{DTX} individually ...
+
+\subsubsection{Problem formulation}
+This section proceeds to ...
+
+\subsubsection{Evaluation}
+For the numerical analysis, ...
+
+\section{\acf{RAPS}}
+\label{ch4:RAPS}
+To extend the previous analytical work ...
+
+\subsection{Problem Formulation}
+The global problem statement ...
+
+\subsubsection{Complexity}
+Dynamic subcarrier allocation ...
+
+\subsection{Step~1: \ac{AA}, \ac{DTX} and Resource Allocation}
+\label{step1}
+...
+
+\subsection{Step~2: Subcarrier and Power Allocation}
+\label{step2}
+This section ...
+
+\subsection{Results}
+\label{results}
+
+...
+
+
+\subsubsection{Benchmarks}
+The following transmission strategies are evaluated ...
+
+\subsubsection{Performance Analysis}
+The channel value selection in ...
+
+\section{Summary}
+\label{ch4:summary}
+Starting with the Shannon limit, ...

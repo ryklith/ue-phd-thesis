@@ -1,0 +1,34 @@
+\documentclass[12pt,english,a4paper]{report}
+\input{../common/packages.tex}
+\input{../common/definitions.tex}
+
+\setlength{\textheight}{24cm}
+\setlength{\headsep}{0cm}
+
+\newcommand{\dir}{template}
+
+\begin{document}
+\title{Chapter 1}
+\author{Una Person}
+\date{
+  \today\\
+  \vspace{2cm}
+  {\centering\footnotesize\begin{tabular}[c]{c}
+      \epsfig{file=../preface/eucolorcrest.ps,height=3cm}\\
+      School of GeoSciences\\
+      Grant Institute\\
+      West Mains Road\\
+      Edinburgh, EH9 3JW\\
+      Scotland
+    \end{tabular}}
+  }
+\maketitle
+\tableofcontents
+\input{\dir/template.tex}
+%\clearpage
+%\listoffigures
+%\listoftables
+%\listofalgorithms
+%\newpage
+%\bibliography{}
+\end{document}

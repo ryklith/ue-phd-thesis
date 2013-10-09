@@ -1,0 +1,405 @@
+\chapter{Motivation and Background}
+\label{ch:motivation}
+
+\section{Overview}
+This chapter first...
+
+\section{Energy Efficient Base Stations}
+\label{sect:eebs}
+A sample figure.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/carbonfootprint}
+\caption[The carbon footprint for an average subscriber in 2007]{The carbon footprint (\coo-equivalent emissions, see Section~\ref{sect:quantEE}) for an average subscriber in 2007~\cite{mmlfl1001}.} % from enablers paper, my own. How to reference?
+\label{fig:4}
+\end{figure}
+
+While the power consumption of mobile devices has always been a topic of research and development due to the constraints imposed by battery operation, \acp{BS} were usually installed in urban locations with good connections to the power grid providing little incentive for efforts in energy efficiency. However, as briefly mentioned in Chapter~\ref{ch:introduction}, the energy efficiency of cellular \acp{BS} is receiving more attention due to several factors~\cite{ls0801}:
+\begin{itemize}
+ \item Rising energy prices~\cite{ahjlss1001} combined with decreasing profit margins~\cite{fz0801} require operators to optimize their operational expenses by decreasing power bills.
+ \item In countries with incomplete or unreliable power grids, \acp{BS} are operated with grid-independent power sources like diesel generators or renewable energy sources~\cite{fz0801}. The costly deliveries of diesel and size of renewable energy sources like wind engines or solar panels make low consumption of the \ac{BS} desirable~\cite{nnr1001}. 
+ \item In the face of global warming, customers have developed an understanding and sensibility for power consumption. Companies aim to apply \emph{green} labels to their products~\cite{hhakvghtk1101,s1201}.
+ \item Disasters like the 2011 Tohoku earthquake and tsunami have shown that the installed battery backups were insufficient for long power grid interruptions~\cite{o1201}. After the disaster, \acp{BS} (and, thus, most communication) were unavailable for days until repair units had reconnected them to the power grid. Efforts in disaster recovery include low-power emergency modes and a generally lower power consumption to enable \acp{BS} to operate longer on battery power~\cite{r1101}.
+\end{itemize}
+For these reasons, reducing the operating power consumption of \ac{LTE} \acp{BS} is the goal of the work presented in this thesis. Recent analyses provided information on how this goal could be achieved. In particular, it was found that while the cell traffic load fluctuates significantly, \acp{BS} are mostly unable to adapt to these fluctuations.
+
+\acp{BS} have been designed and deployed to provide peak capacities to minimize outages. However, in practical scenarios, traffic is rarely at its peak. While \acp{BS} may be designed for crowded midday downtown situations, there are strong variations over time and location with regard to the density of mobile traffic. For example, see the typical mobile traffic in Europe over the course of a day in Fig.~\ref{fig:dailyload}. It varies over a range of more than 80\% and has an average of only 60\% load~\cite{aggsoigdb1101}. Yet, although load varies so strongly, the power consumption of cellular \acp{BS} was found to vary as little as 2\% over the course of a day~\cite{arfb1001}. \ac{BS} power consumption is thus not yet sufficiently adaptive to the traffic demand. Hence, the times of day when the traffic load is below peak provide room for exploitation. During such times, the capacity of a \ac{BS} can be  reduced to achieve lower power consumption without affecting the user satisfaction or \ac{QoS}. How this could be achieved is the contribution of this thesis.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{\dir/img/dailyload}
+\caption[European daily traffic pattern]{European average wireless daily traffic in 2010~\cite{aggsoigdb1101}.}
+\label{fig:dailyload}
+\end{figure}
+
+Note here an important differentiation between Green Radio technology proposals being either in design or in operation. Design proposals are made to affect the architecture or hardware of a \ac{BS}, such as changing the type of \ac{PA}. Design changes may take a long time to reach the market due to specification, approval or manufacturing. In contrast, operation proposals, like turning a \ac{BS} off when it is unused, can reach the market much faster. They may be applicable to existing hardware and can be applied via software upgrades.
+
+Although design and operation changes can be made independently, they affect each other. For example, a change in design---like the introduction of a secondary low power wake-up controller---may enable new types of operation like a cognitive wake-up functionality. In turn, the popular application of a certain type of operation, like sleep modes, may have consequences for future design decisions by providing incentive for producing sleep-mode-enabled hardware. In this thesis, this intertwining of design and operation is taken into account by first identifying the structure and potential of the hardware and then exploiting this potential in operational improvements to the \ac{BS}.
+
+\section{Quantifying Energy Efficiency}
+\label{sect:quantEE}
+Enhancing the energy efficiency of communication networks has led to a field of research popularly labelled \emph{Green Radio}, which this thesis is part of. This field encompasses all efforts taken to increase the ratio of network quality over energy spent or \coo~emitted. Making `radios greener' can be achieved by either increasing network quality at unchanged energy expenditure, by providing equal quality at a lower cost, or both. Here, typical network quality indicators to be improved are capacity, fairness, latency, reliability, and range. Cost is often measured in \coo~emission, energy consumption, or power consumption. Note that energy consumption is equal to the product of the average power consumption and a certain duration. In other words, power is energy normalized over time.
+
+When discussing Green Radio research and results, it is important to be aware of some intricacies and necessary differentiations. Energy efficiency is not easily compared when considering different network quality indicators. For example, at equal energy consumption, an increase in capacity may come at the cost of increased latency, which cannot be easily weighted against each other. Alternatively, a decrease in power consumption through reduced network quality may trigger users to change their behavior which negates the initial savings. These problems are present in many fields of research and have lead to discussions about \ac{QoS}, which tries to assess the alternative a user may be more satisfied with~\cite{akrswv0101a}. But since an industry standard for the \ac{QoS} does not yet exist, the common ground is to measure capacity as the most basic metric while stating the considered scenario assumptions such as geographic location, transmission duration, latency, \emph{etc.}~\cite{std:earthd23}.
+
+Just as there are several ways to measure network quality, there are several alternatives to measuring the cost incurred. The simplest is to only consider \emph{transmission power} at the antenna of a wireless transmitter. This number is usually well-known as it is regulated and targeted in hardware design. A more comprehensive approach is to consider total power spent by a transmitter which includes the heat generated while producing or processing a wireless signal. This number can usually be measured at the mains supply or deduced from battery durations. It is called the \emph{supply power}. But even the supply power required by a device during operation may not display the full picture. Aside from operation, a wireless device requires production before and disposal after. These steps can consume significant energy, particularly in electronic devices. They are composed of resource acquisition and mining, transportation, design, facility construction, production, and recycling. When widening the inspection of power or energy consumption to this global level, the consideration of watts or joules is insufficient. Rather, the global cost of the steps is measured in terms of \coo~emission. Comparing \coo~emissions instead of power consumptions allows taking into account that the \coo~emitted by generating a watt of power varies depending on many factors. For instance, a \ac{BS} operated in a remote location on imported diesel may cause much higher \coo~emissions than a solar-powered \ac{BS} on an urban rooftop. As energy generation usually does not lead to the emission of pure \coo, but rather a mixture of global warming affecting gases, the effects of these actions are typically normalized to \coo-equivalent (or \coo-eq). For example, the \ac{ICT} industry is estimated to have caused about 1.5\% of global \coo-eq emissions in 2007~\cite{mmlfl1001}. From 2007 to 2020, the \coo-eq emission caused by mobile networks is predicted to grow from 0.2\% to 0.4\%~\cite{fmbf1001}. Thus, a doubling of the energy efficiency of mobile communications would allow keeping \coo-eq emissions on the 2007 level which is a common research and development target~\cite{bzb1001}.
+
+As described above, both measuring network quality as well as measuring cost are very intricate. Therefore, the metric of watts of supply power per bit alongside clear network definitions has been chosen as the reference for this thesis. When applying techniques described here to larger scenarios, the additional definitions provide the information necessary for converting watts to \coo-eq over a regional expanse and duration of operation.
+
+\section{Green Radio in Literature}
+Historically, the first works on energy efficiency for wireless networks have been triggered by a desire to extend battery lives in cellular, ad hoc or sensors networks, for example see~\cite{yhe0201,cgb0401,cgb0501,bk0401a}. By the early 2000s, growing environmental concerns had lead to extensive life cycle analyses of cellular networks ~\cite{mob0101,wl0001}. These analyses collected all steps in a devices' life, quantified them with regard to energy expenditure and \coo~emissions and joined them with the number of units sold and installed. The resulting statistics revealed that the power consumption of mobile network infrastructure was significant and that the \coo~emissions of the \ac{ICT} industry were as high as those of international air traffic~\cite{fmbf1001,fz0801}. Through these findings, interest grew with regard to the energy efficiency of transmitters which are powered by the mains grid.
+
+As a consequence, in 2008, the collaborative \emph{Green Radio} project was initiated in the UK which coined the term~\cite{m01}. The efforts were extended in 2009 by the European \ac{EARTH} project~\cite{gbfzis0901}. Both projects encouraged specifically the enhancement of the energy efficiency of cellular access networks by improving their architecture and operation. The works proposed since then can be distinguished by the network aspects they consider. 
+
+For one, there are works which address the hardware of the radio access network. A general overview of such hardware improvements is provided in~\cite{fbzfgjt1001}. Specifically, the improvement of transceiver units is considered in~\cite{gfwem1101,bdgd1101}. New \ac{PA} architectures are proposed in~\cite{hkhg1001}. The \ac{EARTH} project has summarized proposed hardware improvements to \ac{LTE} \acp{BS} in~\cite{std:earthd43}.
+
+Another group of works is the field of \acp{HetNet}. These works are concerned with the power consumption of future networks which are predicted to consist of a very large number of low power small \acp{BS}, such as micro, pico or femto, in addition to macro \acp{BS}. The study in~\cite{kff1101} finds the optimal density of small cells to match a traffic requirement from an energy perspective. In~\cite{rff0901}, the area power consumption metric is proposed to enable comparison between different \acp{HetNet}. Badic~\ea~\cite{bolh0901} formalize the trade-off that is present between capacity and power consumption in \acp{HetNet}. In~\cite{kt1201}, it is suggested that the overlap between macro and small cells in \acp{HetNet} should be used in combination with sleep modes when the capacity increase provided by small cells is not needed. The authors in~\cite{hkd1101} argue that due to the complexity of \acp{HetNet}, they should be self-organizing and self-adapting to the traffic situation.
+
+As a third topic, several kinds of sleep modes are proposed. Long sleep modes with duration of minutes or hours are very effective in reducing power consumption, but require a wake-up mechanism and reduce coverage. Short sleep modes in the order of microseconds to seconds, which are also called dozing, micro sleep or \ac{DTX}, do not pose these problems but promise smaller reductions of the power consumption. As a consequence, long sleep modes are proposed for situations in which coverage can be maintained through other means. For example, when network densities are sufficient such that neighbouring \acp{BS} can take over the coverage of sleeping \acp{BS}~\cite{ok1001,abh1101}. Short sleep modes can be applied independent of coverage. The authors in~\cite{fmmjg1101} propose to use \ac{DTX} when a cell is completely empty, posing a simple but very inflexible mechanism. In~\cite{sec1001} it is assumed that a \ac{BS} consists of multiple independent transmitters, some of which can be deactivated according to traffic requirements, thus increasing the adaptivity to load. With regard to an entire network of sleep capable cells, Abdallah~\ea~\cite{acc1201} study the alignment of sleep modes between neighbouring cells and conclude that sleep modes should be synchronized and orthogonal for maximum efficiency.
+
+Related to sleep modes is the field of cell breathing, cell shrinking or cell zooming through the adjustment of the transmission power~\cite{ha1201,asb1002,nwgy1001}. By introducing flexibility with regard to the transmission power of a \ac{BS}, a network can flexibly adjust to coverage requirements by increasing or decreasing cell sizes. For example, an increase of a cell's size may be needed when neighbouring cells enter sleep mode. 
+
+An extension of sleep modes is the topic of adapting multi-antenna transmission. Rather than using all installed antennas, a \ac{BS} could deliberately reduce its \ac{MIMO} degree to deactivate some antennas when high capacities are not required~\cite{hafm1201,sf1201,kcvh0901,xylzcx1101}. These approaches are labeled \ac{MIMO} adaptation, antenna adaptation or \ac{MIMO} muting. An alternative approach to exploit multiple antennas for energy efficiency is proposed by Wu~\ea~\cite{wsdh1201} and Stavridis~\ea~\cite{ssdhg1201}, who, through---spatial modulation---use all antennas, but never at the same time.
+
+Resource scheduling is a diverse group of works in which different approaches are proposed. Relaxing the delay requirement can be exploited for opportunistic power saving~\cite{gs1101,cj1201}. Spreading signals over a larger bandwidth allows reducing the transmission power~\cite{a1201,vh1101}. Approaches such as game theory promise gains by providing trading mechanisms for a self-organized allocation of resources for enhanced energy efficiency~\cite{mps0701}.
+
+In order to exploit the typically deployed overlapping radio access network generations, it is proposed in~\cite{std:earthd33} to combine a deactivation of one network technology, \eg~\ac{GSM}, with the fall-back to another such as \ac{LTE}. However, this generates issues with backward compatibility and \ac{QoS}.
+
+To exploit spare backhaul capacity, it is suggested in~\cite{sbckk1101} to use coordinated multi-point transmission between multiple \acp{BS} while deactivating parts of each \ac{BS}. However, the benefits strongly depend on the additional power consumption caused by the backhaul link. When combined with sleep modes, it was found in~\cite{hywl1101} that this approach only reduces power consumption in the presence of high data rate users.
+
+In~\cite{hg1101} it is proposed to switch sectorized macro \acp{BS} to omni-directional operation when the capacity requirements are low. While this promises to save two thirds of the power consumption in typical three-sector setups, it also requires the installation of additional omni-directional antennas at \ac{BS} sites.
+
+The most far-reaching proposals for energy efficient cellular networks break with the cellular assumptions presumed in \ac{GSM}, \ac{UMTS} or \ac{LTE}. By separating data and control planes from one another, future networks could have large, long-range `umbrella' control transmitters which take care of discovery and coverage. These would overarch small data plane \acp{BS} which are only activated when they are needed. Such a network setup would provide a very high capacity at a very high degree of load flexibility. These proposals are referred to in literature as `ghost' or `phantom' cell concepts~\cite{sdd1101,tbt1301}, since the small data plane \ac{BS} are `invisible' to the \ac{UE}.
+
+For good surveys on Green Radio topics, the reader is referred to~\cite{hhakvghtk1101,aggsoigdb1101,wvclk1201,e0201a,cpgbc1201}.
+
+Note that detailed literature backgrounds are again provided for each individual chapter in Chapters~\ref{ch:device}, \ref{ch:cell} and \ref{ch:network}.
+
+In this wide field of research, this thesis can be placed in the group of works dealing with resource scheduling. 
+
+% mention good overview papers? packet scheduling: cpgbc1201, energy concerns: e0201a, green radio: hhakvghtk1101, earth: aggsoigdb1101, general: wvclk1201
+
+% Hardware
+% // General: fbzfgjt1001, 
+% // tx: gfwem1101, bdgd1101
+% // pa: hkhg1001
+% // where are all those good ideas?? D4.3... std:earthd43
+% 
+% HetNet/Deployment
+% // kff1101
+% // rff0901
+% // kt1201
+% // hkd1101
+% // bolh0901
+% 
+% Sleep/DTX/Doze
+% // fmmjg1101 cell dtx
+% // sec1001  hspa resource activation
+% // ok1001 handover to surrounding bs
+% // acc1201 orthognal vs non-orthognal multicell
+% // long sleep for picos: abh1101
+% 
+% Power control/cell shrinking/zooming
+% // ha1201
+% // asb1002
+% // nwgy1001
+% 
+% MIMO/AA/Muting/SM
+% //muting: hafm1201 sf1201
+% // AA: kcvh0901, xylzcx1101
+% // SM: ssdhg1201
+% 
+% Scheduling/RRM
+% // delay: gs1101, cj1201
+% // bandwidth: a1201, vh1101
+% // game theory: mps0701
+% 
+% Multi-RAT
+% // D3.3: std:earthd33
+
+% Cognitive Radio/SDR
+% // alb1101
+% // gcjm0901
+
+% CoMP
+% // sbckk1101
+% // with sleep: hywl1101 
+
+% Communication theoretical
+% // trade-off: hoi1101
+
+% relaying, multihop, d2d
+% // bk0401a
+% // b1001a
+
+% De-sectorization
+% // hg1101
+
+% beamforming/adaptive antennas
+% // cj1101
+
+% energy harvesting
+% // otyuy1101
+% // nls1301
+
+% phantom cell/future architecture
+% // ghost: sdd1101
+% // phantom: tbt1301
+
+
+\section{Technical Background}
+\label{background}
+% Goal: 10-20 pages What an uninformed reader needs to know technically before reading this thesis. Show that I know my foundations. (This is not about literature review.)
+% 
+% Train of thought:
+% \begin{enumerate}
+%  \item Currently, most of the world's networks are transitioning to \ac{LTE} (REF). Figure: Status of LTE deployment Europe, Germany or World
+%  \item LTE is a radio access technique with the following characteristics:...
+%  \item LTE is an OFDMA technique, which is related to TDMA/FDMA.
+%  \item As part of OFDM, everything is based on resource blocks
+%  \item Each resource block has a CSI and a capacity and can be treated as an individual link
+%  \item This is how it is also modelled in Simulation. Some words on the modeling in software.
+%  \item Excursion: Convex optimization
+% \end{enumerate}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The following sections outline some fundamental concepts which reappear in Chapters~\ref{ch:device}, \ref{ch:cell}, and \ref{ch:network} of this thesis, namely, \ac{LTE}, multi-carrier technology, multiple antenna transmission, convex optimization and the usage of simulations to model complex cellular systems.
+
+\subsection{\ac{LTE}}
+
+\ac{LTE}~\cite{book:dps1101} is a wireless access standard superseding the \ac{GSM} and \ac{UMTS} for increased network capacities. It is predicted to be adopted in 87 countries by the end of 2013~\cite{tech:b}. See Fig.~\ref{fig:worldmapLTE} for an illustration on the world map. To this extent, the number of \ac{LTE} subscriptions is rising steadily as it replaces older network technologies, as shown in Fig.~\ref{fig:subscriptions}. \ac{LTE} is being continually standardized and developed by the \ac{3GPP}. It is designed to achieve the following set of goals~\cite{book:stb0901}:
+\begin{itemize}
+ \item faster connection establishment and shorter latency;
+ \item higher user spectral efficiencies of more than 5 bps/Hz on the downlink using link bandwidths of up to 20~MHz;
+ \item uniformity of service provision independent of mobile position in a cell;
+ \item improved cost per bit;
+ \item flexibility in spectrum usage to accommodate to national band allocations;
+ \item simplified network architecture;
+ \item seamless switching between different radio access technologies;
+ \item reasonable power consumption for the mobile terminal.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{\dir/img/3GPP_Long_Term_Evolution_Country_Map}
+\caption[Adoption of \ac{LTE} technology]{Adoption of \ac{LTE} technology as of May 8, 2012~\cite{tech:b}.}%(REF) http://en.wikipedia.org/wiki/File:3GPP_Long_Term_Evolution_Country_Map.svg)}
+\label{fig:worldmapLTE}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{\dir/img/ericsson_subscriptions_2012}
+\caption[Mobile subscriptions by technology, 2009-2018]{Mobile subscriptions by technology, 2009-2018~\cite[p.\,7]{tech:c}.}
+\label{fig:subscriptions}
+\end{figure}
+
+\acrodef{SAE}[SAE]{System Architecture Evolution}
+As \ac{LTE} is a wireless technology on a shared medium, it is required to handle resource sharing and interference. These two important challenges are addressed in Chapters~\ref{ch:cell} and \ref{ch:network}, respectively. Note that while \ac{LTE} also consists of non-radio aspects such as the \ac{SAE}, this thesis is only concerned with its \ac{BS} and radio access aspects. 
+
+\subsection{Multi-carrier Technology}
+\label{sect:multicarrier}
+The wireless medium is inherently shared. Wireless transmissions occur simultaneously in resources such as the frequency spectrum, time and location. Therefore, transmissions can negatively affect one another through interference. The technique of dividing a resource into chunks to avoid overlap between multiple transmissions is called \emph{multiplexing}. {Time} is typically shared via \ac{TDM}, {frequency} via \ac{FDM}, and location via installing \acp{BS} a significant distance apart from one another. Multiplexing allows providing multiple independent links carrying independent information streams on the wireless medium. These streams can be allocated to different users or scheduled to the same user for increased sum data rates, thus increasing the scheduling flexibility. In \ac{TDM}, the shared resource is the time domain in which only one link can be active at any point in time and all links are spread over the entire available bandwidth. This concept is illustrated in Fig.~\ref{fig:TDM} for four users. In \ac{FDM}, the shared resource is the frequency domain. Here, links only take up a portion of the available frequency spectrum. See Fig.~\ref{fig:FDM} for an illustration of \ac{FDM} with multiple carriers and four users. Both of these technologies have been applied commercially in wireless technologies for decades. For example, \ac{TDM} is the access scheme of choice in the \ac{GSM} standard~\cite{book:gg9801}, whereas \ac{FDM} has been employed in cordless phones\cite{book:g1001}. A third popular multiple access scheme, \ac{CDM}---\eg~used in the \ac{UMTS}~\cite{p9801}---is not discussed here as it is not related to this thesis.
+
+\ac{OFDM} extends \ac{FDM} to provide a very flexible high capacity multiple access scheme. Similar in notion to \ac{FDM}, \ac{OFDM} subdivides the bandwidth available for signal transmission into a multitude of narrowband subcarriers. The channels affecting these subcarriers are sufficiently narrow in the frequency domain to be considered flat-fading~\cite{book:dps1101} which is important for link adaptation. Unlike in \ac{FDM} where frequency bands are non-overlapping, \ac{OFDM} subcarriers are packed tightly and do overlap. Yet, through selection of the right pulse shape, the signals on each subcarrier remain orthogonal and can be transmitted in parallel with little to no mutual interference.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/TDMAframe}
+\caption[An illustration of \acs{TDM}]{An illustration of \ac{TDM}. Different users are assigned non-overlapping shares of the transmission time spanning a wide bandwidth.}
+\label{fig:TDM}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/FDMAframe}
+\caption[An illustration of \acs{FDM}]{An illustration of \ac{FDM}. Different users are assigned non-overlapping shares of the transmission bandwidth over a significant duration.}
+\label{fig:FDM}
+\end{figure}
+
+\acrodef{QAM}[QAM]{Quadrature Amplitude Modulation}
+\acrodef{QPSK}[QPSK]{Quadrature Phase Shift Keying}
+In addition to this fine separation in frequency, in \ac{OFDM}, the transmission duration is divided into short slots to create an \emph{\ac{OFDM} block} with flat-fading characteristics in which one modulation symbol is transmitted (Multiple antenna technology allows the transmission of multiple symbols, as described in the following section). The modulation symbols can be from any modulation alphabet such as \ac{QPSK}, 16-\ac{QAM}, or 64-\ac{QAM}. In \ac{LTE}, such an \ac{OFDM} block is labeled a \emph{resource element}. The available bandwidth and a duration called \emph{frame} are divided into a number of resource elements. Multiple resource elements are combined to constitute \emph{resource blocks}. When \ac{OFDM} is used to grant multiple users access to the shared transmission medium, it is called \acf{OFDMA}. An illustration of a resulting \ac{OFDMA} frame consisting of a set of resource blocks scheduled to different users is shown in Fig.~\ref{fig:OFDMATDMA}. For a typical \ac{LTE} system with a  subcarrier spacing $\Delta_w = 15$\,kHz, a system bandwidth $W = 10$\,MHz, 12~subcarriers per resource block and a 10\%~guard band, the number of available resource blocks over the frequency domain is
+\begin{equation}
+ N = \frac{0.9 W}{12 \Delta_w}=50.
+\end{equation}
+\nomenclature{$W$}{Total system bandwidth in Hz}
+\nomenclature{$\Delta_w$}{Subcarrier spacing in Hz}
+\nomenclature{$N$}{Number of subcarriers}
+\nomenclature{$T$}{Number of time slots}
+
+Although a resource block consists of multiple subcarriers constituting resource elements, it is the smallest unit which can be individually scheduled, according to the \ac{LTE} standard~\cite{std:3gppts36321}. For this thesis, it is thus assumed that a resource block consists of one subcarrier and stretches over the duration of one time slot. A frame is comprised of $T$ time slots. For example, with $N=50$ and $T=10$, there are
+\begin{equation}
+ NT = 500
+\end{equation}
+resource blocks available for scheduling in an \ac{OFDMA} frame.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/OFDMAframe}
+\caption[Resource allocation in a combined \acs{OFDMA}/\acs{TDMA} system]{Example of resource allocation in a combined \ac{OFDMA}/\ac{TDMA} system constituting an \ac{OFDMA} frame~\cite{book:stb0901}.}
+\label{fig:OFDMATDMA}
+\end{figure}
+
+The option to schedule each resource block to any user in the system enables exploitation of an effect called \emph{multi-user diversity}. As the channels on each resource block between each user and the \ac{BS} is different, resource blocks can be scheduled such that only good channels are used. Statistically, over a certain bandwidth, number of time slots and number of users, it is very probable that a good channel exists. This high probability results in an increase of the transmission data rate compared to a system which does not exploit this effect. An example of scheduling frequency by multiuser diversity is illustrated in Fig.~\ref{fig:multiuserdiversity}. Opportunistic scheduling between multiple users in a system is an important technique employed in Chapter~\ref{ch:cell}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{\dir/img/multiuserdiversity}
+\caption[Example of multi-user diversity]{Example of multi-user diversity scheduling. For each frequency chunk the user with the best channel is selected.}
+\label{fig:multiuserdiversity}
+\end{figure}
+
+\subsection{Multiple Antenna Technology}
+The transmission and reception of wireless signals with multiple antennas is a standard technique in modern communication systems~\cite{book:k0601}. Exploiting multi-path scattering, \ac{MIMO} techniques deliver significant performance enhancements in terms of data transmission rate and interference reduction. The term \emph{multi-path} refers to the arrival of transmitted signals at an intended receiver through differing angles, time delays and/or frequency shifts due to the scattering of electromagnetic waves in the environment, \ie~over multiple paths. Consequently, the received signal power fluctuates through the random superposition of the arriving multi-path signals. This random fluctuation allows to recognize and separate the paths signals take between the multiple transmit antennas and multiple receive antennas, allowing to benefit from two important effects. First, like with multi-user diversity described in the previous section, having multiple signal paths reduces the probability of a deep fade. Hence, the reliability of the transmission is increased. The benefit of this effect called the spatial diversity gain. Second, under suitable conditions such as rich scattering in the environment, separate data streams can be transmitted on the multiple paths. Thus, at the same time, on the same frequency spectrum and in the same place, multiple data streams can be transmitted, increasing the data rate compared to a system with fewer antennas~\cite{book:b0701}. The benefit of this effect is called the spatial multiplexing gain.
+
+Under the assumption of statistical \ac{CSI} at the transmitter, full \ac{CSI} at the receiver and equal power allocated to each antenna, the ergodic \ac{MIMO} link capacity is given by
+\begin{subequations}
+ \begin{align}
+ C &= \mathbb{E}_{\B{H}} \left[  \log_2 \mathrm{det} \left( \B{I}_{M_{\mathrm{R}}} + \frac{P_{\mathrm{Tx}}}{D} \B{H} \B{H}^{\mathrm{H}} \right)   \right],
+\label{eq:ergCDITCSIRMIMOcapacity} \\
+   &= \displaystyle \sum_{i=1}^{min(D,M_{\textrm{R}})} \log_2 \left( 1 + \frac{P_{\mathrm{Tx}}}{D} \epsilon_i \right)
+ \end{align}
+\end{subequations}
+with the expected value operator $\mathbb{E}_{\B{H}}(\cdot)$, transmit power $P_{\mathrm{Tx}}$, channel state matrix $\B{H}$, the number of transmit and receive antennas $D$ and $M_{\mathrm{R}}$, respectively, identity matrix of size $M_{\mathrm{R}}$, $\B{I}_{M_{\mathrm{R}}}$, and $\epsilon_i$ the $i$-th singular value of $\B{H} \B{H}^{\mathrm{H}} $~\cite{gjjv0301}. The gains in capacity through the use of multiple antennas can be charted by generating a number of Rayleigh distributed channel coefficients $\B{H}$ and plotting the achieved capacities. Figure~\ref{fig:EPCapacitiesNoTxFullRxCSI} shows an illustration of achievable capacities, revealing two important characteristics of the \ac{MIMO} capacity. First, it can be seen that capacity grows linearly with \ac{SNR} at high \acp{SNR}. Second, the capacity grows linearly with $\mathrm{min}(D, M_{\mathrm{R}})$. Thus, more antennas yield a higher capacity. In this thesis, up to four receive and transmit antennas are considered.
+\nomenclature{$C$}{Ergodic capacity in bps/Hz}
+\nomenclature{$\mathbb{E}_{\B{H}}(\cdot)$}{Expected value operator}
+\nomenclature{$M_{\mathrm{R}}$}{Number of receiver antennas}
+\nomenclature{$\B{H}$}{Channel state matrix}
+\nomenclature{$\epsilon_i$}{$i$-th eigenvalue}
+\nomenclature{$P_{\mathrm{Tx}}$}{Transmission power of a \ac{BS} at the input of the antenna interface in W}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{\dir/img/EPMIMOCapacitiesNoTxFullRxCSI}
+\caption[Comparison of \ac{MIMO} capacities]{Power-fair \ac{MIMO} capacities at perfect \ac{CSI} at the receiver and statistical \ac{CSI} at the transmitter.}
+\label{fig:EPCapacitiesNoTxFullRxCSI}
+\end{figure}
+
+While raising the number of antennas increases the capacity, it also increases the complexity of transmitters and receivers. As will be shown in Chapter~\ref{ch:device}, this increase in complexity is accompanied by a larger power consumption. It is studied in Chapter~\ref{ch:cell} how to trade off power consumption with capacity for energy efficiency by changing the \ac{MIMO} mode through \ac{AA}.
+
+% \subsection{Optional: Neighboring Cells and Interference}
+
+\subsection{Convex Optimization}
+\label{cvx}
+An important topic employed in Chapter~\ref{ch:cell} is convex optimization which is briefly introduced here. 
+
+A general optimization problem is often written as
+\begin{equation}
+\begin{aligned}
+ &\text{minimize} 	&f_0(\B{x}) & 			&	\\
+ &\text{subject to} 	&f_i(\B{x}) &\leq b_i, 	 	&i=1,\cdots,m\\
+ &			&h_i(\B{x}) &=0, 		 	&i=1,\cdots,p.
+\end{aligned}
+\label{eq:OPboyd}
+\end{equation}
+The problem consists of the optimization variable $\B{x}=(x_1,\cdots,x_n)$, the objective function $f_0:\mathbb{R}^n \mapsto \mathbb{R}$, the inequality constraint functions $f_i:\mathbb{R}^n \mapsto \mathbb{R}$, $i=1,\cdots,m$ and equality constraint functions $h_i:\mathbb{R}^n \mapsto \mathbb{R},i=1,\cdots,p$, and the constraints $b_1,\cdots,b_m$. $\B{x}^*$ is the solution of the problem~\eqref{eq:OPboyd} if for any $z$, $f_1(\B{z}) \leq b_1,\ldots,f_m(\B{z})\leq b_m$ and $h_1(\B{z})=0,\ldots,h_p(\B{z})=0$, it holds that $f_0(\B{z}) \geq f_0(\B{x}^*)$~\cite{book:bv0401}.
+
+This form of optimization problems is convex, if the functions $f_0,\ldots,f_m$ satisfy
+\begin{equation}
+ f_j(\alpha \B{x} + \beta \B{y}) \leq \alpha f_j(\B{x}) + \beta f_j(\B{y})
+\end{equation}
+for all $\B{x},\B{y} \in \mathbb{R}^n$, all $\alpha, \beta \in \mathbb{R}$ with $\alpha + \beta = 1, \alpha \geq 0, \beta \geq 0$, and $j=0,\ldots,m$. In other words, it is convex if the objective function as well as all constraints are convex. Furthermore, any equality constraints $h_i$ have to be affine as any
+\begin{equation}
+ h(\B{x}) = 0
+\end{equation}
+can be represented as
+\begin{subequations}
+\begin{align}
+ h(\B{x}) \leq 0,\label{eq:hx}\\
+ -h(\B{x}) \geq 0.\label{eq:mhx}
+\end{align}
+\end{subequations}
+If $h(\B{x})$ were convex, $-h(\B{x})$ would be concave. The only way for both \eqref{eq:hx} and \eqref{eq:mhx} to be convex is when $h(\B{x})$ is affine.
+
+The important property of convex optimization problems is that they can be solved by interior point methods and that the local optimum is always also the global solution~\cite{book:pe1001}. Furthermore, convex optimization problems can often be solved very efficiently enabling their application even in real-time systems such as resource schedulers. A one-dimensional convex optimization problem without constraints can be graphically illustrated. An example is shown in Fig.~\ref{fig:epigraph}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/epigraph}
+\caption[Geometric interpretation of a simple convex problem]{Geometric interpretation of a simple convex problem~\cite{book:bv0401}.}
+\label{fig:epigraph}
+\end{figure}
+
+A simple example of a two-dimensional convex optimization problem is
+\begin{equation}
+\begin{aligned}
+ &\text{minimize} 	&f_0(\B{z})&=z_1^2 + z_2 + 1		\\
+ &\text{subject to} 	&f_1(\B{z})&=-1-z_1 \leq 0\\
+ &			&h_1(\B{z})&=z_2 - 1 =0.
+\end{aligned}
+\label{eq:OPexample}
+\end{equation}
+The second gradient of $f_0(\B{z})$ is
+\begin{equation}
+ \nabla^2 f_0(\B{z}) = 
+\begin{pmatrix}
+ 2 & 0\\
+ 0 & 0
+\end{pmatrix}.
+\end{equation}
+The objective function and its inequality constraints are convex as $\nabla^2 f_0(\B{z})$ is greater or equal to zero on all entries. The equality constraint is affine. The sample problem is thus a convex optimization problem. By inspection of \eqref{eq:OPexample}, it can be found that the solution is
+\begin{equation}
+ \B{z}^* = (0,1).
+\end{equation}
+Either proving convexity of a problem or transforming a problem into a convex problem are ways to efficiently solve optimization problems.
+
+%Boyd PROBLEM 4.62?
+
+\subsection{Network Simulation}
+% \begin{itemize}
+%  \item That simulations are a necessary tool due to analytical complexity
+% \item What is simulated (layout, association, channel, interference, sinr, capacity, scheduling, different fadings) and what isn't (protocol, pilots, actual mobility).
+% \item Simulation flowchart.
+% \item Network plot.
+% \item Data collection from center cell
+% \end{itemize}
+
+For many problems in communications research, analytical solutions have not yet been found. To still be able to evaluate such problems, researchers resort to repeated independent trial executions of a given problem. The statistical outcomes of these trials provide insight into the problems and potential solutions. These trials are often performed as computer simulations---rather than in hardware---to avoid costly and time consuming prototyping. Such computer simulations allow to model problems, slightly vary their nature and generally experiment on them. They can also be used to test solutions and assess whether inventions deliver the anticipated results. As they prove to be such a versatile tool, they are used also in this thesis to assess the proposed solutions, when analytical solutions cannot be found.
+
+More specifically, cellular networks are simulated which are as large as computational constraints allow. For example, see Fig.~\ref{fig:simnetwork} for the layout of a typical network simulation consisting of \acp{UE} and \acp{BS} distributed over an area. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{\dir/img/large_network}
+\caption[A network in the network simulator]{A sample network generated by the network simulator.}
+\label{fig:simnetwork}
+\end{figure}
+
+\acrodef{IPOPT}[IPOPT]{Interior Point OPTimizer}
+The network simulator which produced the results shown in this thesis was developed from the ground up by the author and contains the following elements:
+\begin{itemize}
+ \item A configuration interface via configuration files,
+ \item Network generation consisting of:
+ \begin{itemize}
+  \item Geometric modules for the distribution of physical entities onto hexagonally arranged three-cell \ac{BS} sites,
+  \item Path loss and shadowing modules for the association of \acp{UE} to \acp{BS} as defined by the \ac{3GPP}~\cite{std:3gpp-faeutrapla},
+  \item \ac{OFDM} \ac{MIMO} \ac{SINR} calculation,
+ \end{itemize}
+ \item A frequency-selective fading model calibrated according to the \ac{WINNER} air interface configuration\cite{std:ist-chanmod2},
+ \item Margin-adaptive resource allocation,
+ \item Several modules for the algorithms described in Chapters~\ref{ch:cell} and~\ref{ch:network},
+ \item Interior point convex optimization via the \ac{IPOPT}~\cite{wl01},
+ \item Data collection, analysis and plotting tools,
+ \item A unit test suite,
+ \item Detailed event logging,
+ \item Parallelization via the high-throughput parallelization system HTCondor~\cite{t1301}.
+\end{itemize}
+
+In addition to the list of simulator elements, it is also important to note what is not modelled. For example, capacity is calculated based on \ac{SINR} by the Shannon limit. Bit errors, retransmission, error correction or protocols are not included; neither are pilots, channel sounding or \ac{LTE} signaling and, thus, imperfect \ac{CSI}. \ac{UE} mobility is modelled as a fast-fading component rather than a change in position on the network map.
+
+A typical simulation consists of a large number of independent trials executed in Monte Carlo fashion, \ie~in parallel, thus yielding statistical outcomes over all trials. A flowchart of the most important steps involved in a simulation run is provided in Fig.~\ref{fig:simflowchart}. To ensure sufficient consideration of interference, data is only collected from cells which are surrounded by at least two layers (tiers) of cells causing interference. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/simulator_flowchart}
+\caption[Sample simulation flowchart]{Sample simulation flowchart.}
+\label{fig:simflowchart}
+\end{figure}
+
+The simulators which produced the results presented in Chapters~\ref{ch:device} and \ref{ch:cell} were written as MATLAB~\cite{01a} scripts. Required packages are the Optimization and Statistics Toolboxes. An optional package is the Parallel Computing Toolbox. The network simulator employed in Chapter~\ref{ch:network} was written in python~\cite{01} using numpy, scipy, matplotlib, virtualenv, \ac{IPOPT}, ATLAS, LAPACK, MKL and ACML libraries. Depending on the network size, extensive simulation runs can take up to several days on a parallelized system. Unlike the highly optimized convex optimization processes, computation of \acp{SINR} and data handling are very time consuming, causing long simulation run times.
+
+\section{Summary}
+This chapter served to provide the motivation for \ac{BS} power saving, establish the literature context, and briefly introduce key technical concepts. To begin with, it was explained that cellular \acp{BS} contribute significantly to the power consumption and \coo~emission of mobile networks and that they do so during operation. Low load situations, such as night time, were identified as opportunities for reducing \ac{BS} power consumption. The necessity of observing \ac{BS} design along with \ac{BS} operation for power saving was emphasized which is reflected in the structure of this thesis. Next, Green Radio literature was discussed. In the last part of this chapter, key technical concepts were introduced which reappear in the following chapters. \ac{LTE}, multicarrier and multiple antenna technology, and convex optimization are all important topics applied in this thesis. Furthermore, the computer simulation of cellular networks was described in detail as it was used for producing numerical results where analytical solutions could not be found.
+
+

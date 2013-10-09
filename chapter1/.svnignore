@@ -1,0 +1,10 @@
+*.log
+*.blg
+*.synctex.gz
+*.lof
+*.ps
+*.toc
+*.lot
+*.ilg
+*.glo
+

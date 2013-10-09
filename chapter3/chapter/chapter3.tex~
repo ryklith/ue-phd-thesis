@@ -1,0 +1,630 @@
+\chapter{Power Saving on the Device Level}
+\label{ch:device}
+% Goal: 20-30 pages which tell how a BS consumes power and how we go on from there.
+
+\section{Overview}
+Power models describe how much power a device consumes in different configurations or scenarios. Depending on their depth, power models may also reveal architectural details and allow comparisons between different scenarios or assist the exploration of configurations which are not available for measurement in laboratories. 
+
+In energy efficiency research, power models are the basis of any power consumption analysis. Solid models are required to produce reliable results, since the model assumptions significantly affect the energy efficiency solutions proposed. For example, if a model were to falsely describe heat dissipation as a major contributor to power consumption, research efforts with regard to the reduction of heat dissipation might be ineffectively spent. Therefore, it is immensely important to have reliable power models such as the ones presented in this chapter.
+
+In this chapter, three levels of detail of a power model for \ac{LTE} \acp{BS} are derived. The reason is that higher levels of detail allow ensuring the reliability of the model, manipulating specific aspects and parameters and recognizing the underlying architecture. In contrast, lower levels of detail abstract the model specifics in favor of applicability. The goal of this chapter is to allow the reader to first follow the construction of the component model and later the simplification towards the affine model.
+
+The remainder of this chapter is structured as follows. Section~\ref{ch3:challenges} summarizes the challenges encountered when modeling \ac{BS} power consumption. Existing power models are discussed in Section~\ref{ch3:existing}. Section~\ref{ch3:componentmodel} describes the \emph{component power model} in detail. This model reveals the sources of power consumption within cellular \acp{BS}. In Section~\ref{parameterizedmodel}, the complex component model is parameterized into a \emph{parameterized power model} such that only those parameters which are often manipulated for power saving remain, greatly reducing the model complexity. In Section~\ref{affinemodel}, an \emph{affine power model} approximation is defined. The affine mapping contained in this model allows integrating it into analytical problems in Chapters~\ref{ch:cell} and \ref{ch:network}. Section~\ref{ch3:summary} summarizes the chapter and compares the three models with regard to their complexity.
+
+The component model was developed in collaboration with the \ac{EARTH} project. Hardware manufacturers have provided the experimental data on individual components. The author of this thesis has contributed to this power model by capturing it in MATLAB source code and aligning its concurrent development between EARTH partners. The model has been published and applied in parts in~\cite{std:earthd23,aggsoisgd1101,aggsoigdb1101,ddgfahwsr1201_own}. The detailed description of the model in this chapter is an original contribution. The parameterized model has been submitted for publication in~\cite{hag1301_own}.
+
+\section{Challenges in Power Modeling}
+\label{ch3:challenges}
+Generic modeling of \ac{BS} power consumption is not a trivial task for multiple reasons. First, in order to protect their industrial designs, equipment vendors and manufacturers are hesitant to reveal the architecture of their products. They go so far as to contractually prohibit the opening of device casings for customers. Consequently, it is difficult to understand the contributing components to power consumption within cellular \acp{BS}. Second, vendors and manufacturers have differing designs, such that a power model may either only be valid for a single brand of devices or that multiple models would have to be developed. Third, architectures and technologies continually evolve, weakening the long-term applicability of power models. As such, a particular model may only be valid for a certain generation of \acp{BS}.
+
+All of these problems have been addressed in the component power model as follows: By the combined effort of experts from multiple manufacturers, general common architectures were agreed upon without revealing competitive technical differences. These common architectures also helped bridge the design differences present between competing manufacturers. Finally, to ensure the lasting applicability of the model, foreseen technical advances were included in the model. As \ac{LTE} is the prominent cellular network technology of the coming decade (see Section~\ref{background}), the component power model describes an \ac{LTE} \ac{BS}.
+
+The data sets provided in this chapter were all obtained through measurements within the EARTH project.
+
+\section{Existing Power Models}
+\label{ch3:existing}
+In literature, three distinct power models for wireless transmitters are proposed and applied. 
+
+While in need of a power model for the comparison of the power efficiency of \ac{MIMO} with \ac{SISO} transmission, Cui~\ea~\cite{cgb0401} derived a first technology-independent model for the total power consumption of a generic radio transceiver. It was established that power consumption can be divided into the power consumption of the \ac{PA} and the power consumption of all other circuit blocks. The power consumption of the \ac{PA} was described to vary with transmission settings like the number of antennas, the energy per bit, the bit rate and the channel gain, while the consumption of circuit blocks was assumed a constant. Note that this power model is not a power model for cellular \acp{BS}, but for a generic wireless transceiver. Yet, it represents the first steps towards modeling the power consumption of wireless devices.
+
+Arnold~\ea~\cite{arfb1001} derive the power consumption of cellular \acp{BS} by considering that a typical \ac{BS} consists of multiple sectors, has multiple \acp{PA}, a cooling unit and a power supply loss. The remaining components' consumption is considered a constant. This model is accurate in its assumptions. But it only has data available for \ac{GSM} and \ac{UMTS} \acp{BS}. For \ac{LTE}, the model is based on predictions and differs significantly from the values presented in this chapter.
+
+Deruyck~\ea~\cite{djm1201} used extensive experimental measurements to determine the power consumption of several types of \ac{SOTA} \acp{BS}, like the macro cell, micro cell and femto cell. The power consumption of a \ac{BS} is assumed to be a constant, independent of the traffic load. Thus, this model is not suitable for the exploration of \ac{BS} operating power consumption as is required in Chapters~\ref{ch:cell} and \ref{ch:network}.
+
+The model described in the following has partly been published as an element of an \ac{EARTH} project deliverable~\cite{std:earthd23}. It has been published in abbreviated form in~\cite{aggsoisgd1101,aggsoigdb1101,ddgfahwsr1201_own}.
+
+\section{The Component Power Model}
+\label{ch3:componentmodel}
+Before the description of the model, it is necessary to make some introductory remarks.
+
+\subsection{Remarks}
+
+First, this model describes the supply power consumption of a \ac{LTE} cellular \ac{BS} and is derived as the sum of the consumption of its subcomponents. The consumption of each subcomponent is derived from experimental measurements. The prediction of the dependence on operating parameters is derived from their architecture.
+
+Second, the model is an instantaneous model. It does not model effects which occur over time, such as power up or power down. Rather it models instantaneous power consumption at a certain configuration. When estimating power consumption over a time duration consisting of different configurations, a weighted averaging of the instantaneous values needs to be performed.
+
+Third, this model encompasses the architecture of an \ac{LTE} \ac{BS} entering the market in the year 2012. For figures in this chapter, the system parameters in Table~\ref{tab:modelparams} are used. It represents the architecture found in most \acp{BS} which is foreseen to remain unchanged for the coming five to ten years. Note that this chapter is not concerned with how the hardware could be improved. Such hardware improvements were published in \cite{std:earthd43}.
+
+\begin{table}
+\centering
+ \begin{tabular}{c | c}
+  Parameter & Value \\
+\hline
+Feeder loss, $\sigma_{\mathrm{feed}}$ & 0.5 \\
+Number of radio chains, $D$ & 2 \\
+Transmitted power, $P_{\mathrm{Tx}}$ & 40~W\\
+Number of \ac{BS} sectors, $M_{\mathrm{sec}}$ & 3\\
+System bandwidth, $W$ & 10~MHz\\
+ \end{tabular}
+\caption[Model parameters assumed for figures of Chapter~\ref{ch:device}]{Model parameters used in figures of this chapter.}
+\label{tab:modelparams}
+\end{table}
+
+\subsection{The Components of a \ac{BS}}
+The modelled \ac{LTE} macro \ac{BS} consists of a transceiver with multiple antennas. The transceiver comprises one or more lossy antenna interfaces, \acp{PA} and \ac{RF} transceiver sections as well as one \ac{BB} interface including both a receiver section for uplink and transmitter section for downlink, one \ac{DC}-\ac{DC} power supply regulation, one active cooling system and one mains \ac{AC}-\ac{DC} power supply for connection to the electrical power grid. Fig.~\ref{fig:BSparts} shows an illustration.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{\dir/img/BScomponents}
+\caption[The components of the modelled \ac{BS}]{The components of the modelled \ac{BS}.}
+\label{fig:BSparts}
+\end{figure}
+
+In practice, a \ac{BS} may be serving multiple cells by sectorization. In that case, there may be overlap between the components and the sectors. For example, a single cooling cabinet may be used to house the electronics for all sectors. However, for purposes of modeling, it is assumed that a \ac{BS} only serves a single cell. Thus, the power consumption of a \ac{BS} for multiple cells can be found as the sum of the individuals.
+
+In currently prevailing architecture as portrayed in Fig.~\ref{fig:BSparts}, the \ac{BS} contains one or multiple so-called \emph{radio chains} each consisting of one \ac{RF} transceiver, one \ac{PA} and one antenna. Thus, the number of radio chains, antennas, \acp{PA} and \ac{RF} transceivers is identical and terminology can be used interchangeably.
+
+% Note that unlike typical \acp{UE}, a \ac{BS} is capable of full-duplex transmission, consisting of the uplink and the downlink, occurring simultaneously in \ac{FDD}. For purposes of power consumption modeling, uplink and downlink can be treated separately, as some components are only involved in either. For example, the \ac{PA} is only involved in the downlink. However, for the purposes of this thesis, the \ac{BS} power consumption is generalized as total supply power consumption, independent of specific uplink or downlink operation.
+
+In the following, the power consumption of each individual component is inspected to generate the component power model for the entire \ac{BS}. Components are treated from right to left as depicted in Fig.~\ref{fig:BSparts}.
+
+\subsubsection{Antenna Interface}
+This passive component is listed here for completeness, although it has no power consumption characteristics. For macro \ac{BS} with long feeder cables between the \ac{PA} and the antenna, a feeder loss has to be compensated for, which is typically of magnitude around 3~dB. For the model, this feeder loss is included in the modeling of the \ac{PA}.
+
+\subsubsection{\ac{PA}}
+The \ac{PA} amplifies the signal before it is transmitted by the antenna. Due to low achievable efficiencies, \acp{PA} contribute significantly to the overall power consumption if high powers are targeted at the antenna, as described in Section~\ref{sect:eebs}.
+
+% Typical info on PAs. Architecture. Material. Challenges. A short history?
+
+% Differences in PAs between BS types. PAPR. backoff. efficiency. 12dB vs 8dB PAPR.  GaN/GalliumNitride HEMT, Doherty vs class AB, what else?
+
+Note that when comparing transmission powers in this study, it is referred to as the sum measured at the inputs of all antenna interfaces. Thus, feeder cable losses are included and \acp{BS} with differing numbers of antennas can be compared fairly with regard to their transmission power. 
+
+Due to its non-linearity, the \ac{PA} modeling involves measurement results of the power-added efficiency. The power-added efficiency of the \ac{PA} is looked up during modeling via the function $l_{\mathrm{PA}}(\cdot)$. The efficiency function is shown in Fig.~\ref{fig:PAeff}. The efficiency of the \ac{PA} can reach up to 54\% at very high transmission powers. However, these high efficiencies can rarely be achieved in operation due to the strong transmission power fluctuation of \ac{OFDMA} signals and power control. At low transmission powers, \acp{PA} have very low efficiencies. This effect cancels the power saving of power control to some degree.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/PAeff}
+\caption[The power-added efficiency over the maximum output power]{The power-added efficiency, $l_{\mathrm{PA}}(\cdot)$, over the maximum output power as measured within the \ac{EARTH} project.}
+\label{fig:PAeff}
+\end{figure}
+
+At constant power spectral density, the power output of each \ac{PA}, $P_{\mathrm{out}}$ in W, is a function of the transmission power, $P_{\mathrm{Tx}}$ in W, the number of antennas, $D$, the share of the maximum bandwidth used for transmission, $f\in[0,1]$, and an adjustment for feeder losses, $\sigma_{\mathrm{feed}}\in[0,1]$ is given as
+\begin{equation}
+ P_{\mathrm{out}} =  \frac{ P_{\mathrm{Tx}} f (1-\sigma_{\mathrm{feed}})}{D}.
+\end{equation}
+\nomenclature{$P_{\mathrm{out}}$}{The power output of a single \ac{PA} in W}%
+\nomenclature{$f$}{Share of available bandwidth used for transmission}%
+\nomenclature{$\sigma_{\mathrm{feed}}$}{Feeder loss}%
+\nomenclature{$D$}{Number of \ac{BS} antennas/radio chains}%
+
+The power consumption of the \acp{PA} in W is then determined by the efficiency and the number of \acp{PA}, such that
+\begin{equation}
+ P_{\mathrm{PA}} = D \frac{P_{\mathrm{out}}}{l_{\mathrm{PA}}(P_{\mathrm{out}})}.
+\end{equation}
+\nomenclature{$P_{\mathrm{PA}} $}{Power consumption of all \acp{PA} in a \ac{BS} in W}%
+\nomenclature{$l_{\mathrm{PA}}$}{\ac{PA} efficiency}%
+
+The power consumption in sleep mode, $P_{\mathrm{PA,S}}$ in W, scales with the number of \acp{PA}. The power consumption of one \ac{PA} in sleep mode, $P_{\mathrm{PA,S}}'$, was found by experimental measurement, such that
+\begin{equation}
+  P_{\mathrm{PA,S}} = D P_{\mathrm{PA,S}}',
+\end{equation}
+with $P_{\mathrm{PA,S}}' = 27.75$\,W.
+\nomenclature{$P_{\mathrm{PA,S}}$}{Power consumption of all \acp{PA} in a \ac{BS} in sleep mode in W}%
+\nomenclature{$P_{\mathrm{PA,S}}'$}{Power consumption of a \ac{PA} in sleep mode in W}%
+
+The power consumption of the \ac{PA} over $f$ is shown in Fig.~\ref{fig:P_PA}. The effect of the reduced \ac{PA} efficiency at lower transmission powers results in an almost linear relationship of bandwidth/transmission power to power consumption. At a maximum of 250~W, the \acp{PA} can consume a significant amount of power. However, this can be mitigated by reducing the transmission bandwidth. Also, as an analog component, a \ac{PA} can be switched to a sleep mode with low power consumption quickly which has just above 50~W power consumption.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/P_PA_2x}
+\caption[$P_{\mathrm{PA}}$ as a function of bandwidth used]{$P_{\mathrm{PA}}$ as a function of bandwidth used.}
+\label{fig:P_PA}
+\end{figure}
+
+\subsubsection{\ac{RF} Transceiver}
+The \ac{RF} transceiver provides the signal conversion between the digital and analog domain as well as frequency conversion between the \ac{BB} and \ac{RF} frequencies. It consists of a large number of elements such as \ac{IQ}-Modulators, voltage-controlled oscillators, mixers, \acp{DAC} and \acp{ADC}, low-noise and variable gain amplifiers and clocks. Power consumption of each of these elements is independent of external factors in measurement. The values and the resulting sum consumption are shown in Table~\ref{tab:P_RF}. Thus, the power consumption of the \ac{RF} transceiver is modelled as a constant. As one \ac{RF} transceiver is installed in each antenna chain, \ac{RF} power consumption scales with the number of antenna chains.
+
+The power consumption of all \ac{RF} transceivers, $P_{\mathrm{RF}}$ in W, is modelled as a linear function of an individual transceiver, $P_{\mathrm{RF}}^\prime$, with
+\begin{equation}
+ P_{\mathrm{RF}} = D P_{\mathrm{RF}}^\prime,
+\end{equation}
+where $P_{\mathrm{RF}}^\prime$ in W is comprised of reference values for commercially available components as shown in Table~\ref{tab:P_RF}. A technology scaling factor, $a_{\mathrm{TECH}}$, is included to account for different generations of \ac{RF} transceivers.
+\nomenclature{$P_{\mathrm{RF}}$}{Power consumption of all \ac{RF} transceivers in W}%
+\nomenclature{$P_{\mathrm{RF}}^\prime$}{Power consumption of an \ac{RF} transceiver in W}%
+
+\begin{table}
+\centering
+\begin{tabular}{l |l c}
+Block element &  & Power consumption in mW \\ 
+\hline
+\ac{IQ} Modulator, DL& & 1000\\
+Variable attenuator, DL & & 10 \\
+Buffer, DL & &300 \\
+\ac{VCO}, DL &  &340 \\
+Feedback mixer, DL && 1000 \\
+Clock Generation, DL && 990 \\
+\ac{DAC}, DL && 1370 \\
+\ac{ADC}, DL & &730 \\
+\ac{LNA} 1, UL && 300 \\
+Variable Attenuator, UL & &10\\
+\ac{LNA} 2, UL & &1000 \\
+Dual mixer, UL & &1000 \\
+Variable Gain Amplifier, UL && 650 \\
+Clock generation, UL & &990 \\
+\ac{ADC} 1, UL & &1190 \\
+\hline
+Sum $P_{\mathrm{RF}}''$ && 10880\\
+Technology scaling $a_{\mathrm{TECH}}$&& 1.19\\
+\hline \hline
+$P_{\mathrm{RF}}^\prime= a_{\mathrm{TECH}}  P_{\mathrm{RF}}''$& & 12940\\
+\end{tabular}
+\nomenclature{$a_{\mathrm{TECH}}$}{Technology scaling for \ac{RF} transceiver}%
+\nomenclature{$P_{\mathrm{RF}}''$}{Sum of \ac{RF} blocks power consumption in W}%
+
+\caption[Reference power consumption values of \acs{RF} transceiver blocks]{Reference power consumption values of \ac{RF} transceiver blocks, where UL and DL refer to blocks which are part of the uplink or downlink operation, respectively.}
+\label{tab:P_RF}
+\end{table}
+
+
+The \ac{RF} transceiver as present in currently manufactured \acp{BS} is incapable of sleep mode operation. Therefore, its power consumption in sleep mode is equal to its power consumption when active.,
+\begin{equation}
+ P_{\mathrm{RF,S}}= P_{\mathrm{RF}}.
+\end{equation}
+\nomenclature{$P_{\mathrm{RF,S}}$}{Power consumption of all \ac{RF} transceivers in sleep mode in W}%
+
+The power consumption of the \ac{RF} transceiver is shown as a function of $f$ in Fig.~\ref{fig:P_RF}. Since it is constant, it can only be manipulated through the number of \ac{RF} transceivers in operation. Sleep mode operation is not yet foreseen for \ac{RF} transceivers.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/P_RF_2x}
+\caption[$P_{\mathrm{RF}}$ as a function of bandwidth used]{$P_{\mathrm{RF}}$ as a function of bandwidth used.}
+\label{fig:P_RF}
+\end{figure}
+
+\subsubsection{\ac{BB} Unit}
+The \ac{BB} unit generates and processes the digital signal before it is passed to the \ac{RF} transceiver. The \ac{BB} unit of macro \acp{BS} is typically a stand-alone system-on-chip based on flexible \ac{FPGA} architecture. Since this component is a digital processor, it is best modelled by its operations, namely by \ac{GOPS}. As the power cost of \ac{GOPS} can be estimated at 40~\ac{GOPS}/W and a set of different functions of the \ac{BB} unit, $I_{\mathrm{BB}}$, can be associated with the number of \ac{GOPS} required, the power consumption can be modelled. \nomenclature{$I_{\mathrm{BB}}$}{Set of subcomponents of the \ac{BB} unit} Unlike in other \ac{BS} components, the \ac{BB} unit scales non-linearly with $D$ and $f$. For example, the frequency domain processing complexity grows exponentially with the number of antennas. The exact scaling exponents along with the reference complexities for the modeling of \ac{BB} operations are shown in Table~\ref{tab:P_BB}. 
+
+\begin{table}
+\centering
+ \begin{tabular}{l | c c c c c}
+Type of processing, $i$ 	& \ac{GOPS} 	& \begin{tabular}{@{}c@{}}$P_{i,\mathrm{BB}}^{\mathrm{ref}}$ \\ in W\end{tabular}& $y_i^D$ 	& $y_i^f$ 	& $z_{\mathrm{s}}$\\
+\hline
+Time Domain Processing		& 360 		&9.0					&1		&0		&0\\
+Frequency Domain Processing	& 60 		&1.5					&2		&1		&0\\
+Forward Error Correction	& 60 		&1.5					&1		&0		&1\\
+Central Processing Unit		& 400 		&10.0					&1		&0		&1\\
+Common Public Radio Interface	& 300 		&7.5					&1		&0		&1\\
+Leakage				& 118 		&3.0					&1		&0		&1\\
+ \end{tabular}
+\caption[Complexity of \acs{BB} operations]{Complexity of \ac{BB} operations and their scaling with the number of transmit antennas and the transmission bandwidth.}
+\label{tab:P_BB}
+\end{table}
+
+These reference values and scaling exponents are used to find the \ac{BB} unit power consumption in W, with
+\begin{equation}
+ P_{\mathrm{BB}} = \displaystyle \sum_{i \in I_{\mathrm{BB}}} P_{i,\mathrm{BB}}^{\mathrm{ref}} D^{y_i^D} f^{y_i^f},
+\end{equation}
+where $P_{i,\mathrm{BB}}^{\mathrm{ref}}$ in W is the power consumption per sub-component, $y_i^D$ is the scaling exponent for the number of radio chains, and $y_i^f$ is the scaling exponent for the share of bandwidth used, each as provided in Table~\ref{tab:P_BB}.
+\nomenclature{$P_{\mathrm{BB}}$}{Power consumption of the \ac{BB} unit in W}%
+\nomenclature{$P_{i,\mathrm{BB}}^{\mathrm{ref}}$}{Reference power consumption of a \ac{BB} subcomponent $i$ in W}%
+\nomenclature{$y_i^D$}{Scaling exponent for \ac{BB} power consumption which depends on the number of antennas}%
+\nomenclature{$y_i^f$}{Scaling exponent for \ac{BB} power consumption which depends on the share of available bandwidth used}%
+
+The sleep mode power consumption of the \ac{BB} units, $P_{\mathrm{BB,S}}$ in W, is lower than when in active mode, as time domain and frequency domain processing can be disabled as indicated by the sleep mode switch, $z_{\mathrm{s}}$. Like the active power consumption, sleep mode power consumption is found by the combination of reference values and scaling exponents,
+\begin{equation}
+ P_{\mathrm{BB,S}} = \displaystyle \sum_{i \in I_{\mathrm{BB}}} P_{i,\mathrm{BB}}^{\mathrm{ref}} D^{y_i^D} f^{y_i^f} z_{\mathrm{s}}.
+\end{equation} 
+\nomenclature{$P_{\mathrm{BB,S}}$}{Power consumption of the \ac{BB} unit during sleep mode in W}%
+\nomenclature{$z_{\mathrm{s}}$}{Sleep mode switch for the calculation of \ac{BB} power consumption}%
+
+When drawn over the transmission bandwidth, see Fig.~\ref{fig:P_BB}, the power consumption of the \ac{BB} unit is found to be only lightly affected by load, \ie~the bandwidth used. However, sleep modes are available for the \ac{BB} which can reduce its power consumption by more than 30\%. \ac{MIMO} operation has a significant effect on the \ac{BB} power consumption, as it is modelled with a quadratic scaling factor due to the added computational complexity of \ac{MIMO} processing.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/P_BB_2x}
+\caption[$P_{\mathrm{BB}}$ as a function of bandwidth used]{$P_{\mathrm{BB}}$ as a function of bandwidth used.}
+\label{fig:P_BB}
+\end{figure}
+
+
+\subsubsection{\ac{DC}-\ac{DC}-Conversion}
+To supply the required \ac{DC} voltages for the various components mentioned above, a \ac{BS} is equipped with several \ac{DC}-\ac{DC}-converters. As the architectures of these converters may vary across vendors, the conversion is modelled as a single component. Laboratory measurements have been taken from one representative \ac{DC}-\ac{DC}-converter as a function of the required load. Conversion has an efficiency of less than one, which can also be represented as a loss. With the \ac{DC}-\ac{DC}-converter built for a maximum power output of $P_{\mathrm{DC, out, max}}$ in W, the loss is larger the further the actual required power by \ac{PA}, \ac{RF} transceiver and \ac{BB} unit is from $P_{\mathrm{DC, out, max}}$. See Fig.~\ref{fig:Loss_DC} for the measured losses function, $l_{\mathrm{DC}}(\zeta_{\mathrm{DC}})$, of the ratio of maximum power output to actual power output, $\zeta_{\mathrm{DC}}$, with
+\begin{equation}
+ \zeta_{\mathrm{DC}} = \frac{P_{\mathrm{DC, out, max}}} {P_{\mathrm{PA}} + P_{\mathrm{RF}} + P_{\mathrm{BB}}}.
+\end{equation}
+\nomenclature{$\zeta_{\mathrm{DC}}$}{Ratio of used to maximum output power by the \ac{DC}-\ac{DC}-converter}%
+\nomenclature{$P_{\mathrm{DC, out, max}}$}{Maximum output power of the \ac{DC}-\ac{DC}-converter in W}%
+
+The power consumption caused by \ac{DC}-\ac{DC}-conversion in W is then found as
+\begin{equation}
+ P_{\mathrm{DC}} = l_{\mathrm{DC}}(\zeta_{\mathrm{DC}}) \left( P_{\mathrm{PA}} + P_{\mathrm{RF}} + P_{\mathrm{BB}} \right).
+\end{equation}
+\nomenclature{$P_{\mathrm{DC}}$}{Power consumption of \ac{DC}-\ac{DC}-conversion in W}%
+\nomenclature{$l_{\mathrm{DC}}$}{Efficiency of \ac{DC}-\ac{DC}-conversion; a function of $\zeta_{\mathrm{DC}}$}%
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/loss_DC}
+\caption[\acs{DC} conversion loss function]{\ac{DC} conversion loss function $l_{\mathrm{DC}}(\zeta_{\mathrm{DC}})$ as measured within the \ac{EARTH} project.}
+\label{fig:Loss_DC}
+\end{figure}
+
+
+\ac{SOTA} \ac{DC}-\ac{DC}-converters are assumed to possess no capability for sleep modes and, thus, remain activated during \ac{BS} sleep mode, with power consumption during sleep mode, $P_{\mathrm{DC,S}}$ in W,
+\begin{equation}
+ P_{\mathrm{DC,S}} = P_{\mathrm{DC}}.
+\end{equation}
+\nomenclature{$P_{\mathrm{DC,S}}$}{Power consumption of \ac{DC}-\ac{DC}-conversion in sleep mode in W}%
+
+The power consumption of the \ac{DC}-\ac{DC}-converter is shown as a function of $f$ in Fig.~\ref{fig:P_DC}. It is directly dependent on the components the \ac{DC}-\ac{DC}-converter powers and varies by less than 20\% over all bandwidths. The reduced power consumption in sleep mode is only a passive effect and not an active switching process.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/P_DC_2x}
+\caption[$P_{\mathrm{DC}}$ as a function of bandwidth used]{\ac{DC}-\ac{DC}-converter power consumption as a function of bandwidth used.}
+\label{fig:P_DC}
+\end{figure}
+
+\subsubsection{Mains Supply/\ac{AC}-\ac{DC}-Conversion}
+Power from the the \ac{AC} mains grid is converted to \ac{DC} by the mains power supply unit. This unit is measured and modelled in the same fashion as \ac{DC}-\ac{DC}-conversion with conversion loss. See Fig.~\ref{fig:Loss_AC} for the measured losses as a function of the ratio of maximum power output to actual power output, $\zeta_{\mathrm{AC}}$, with
+\begin{equation}
+ \zeta_{\mathrm{AC}} = \frac{P_{\mathrm{AC, out, max}}} {P_{\mathrm{PA}} + P_{\mathrm{RF}} + P_{\mathrm{BB}} + P_{\mathrm{DC}}}.
+\end{equation}
+\nomenclature{$\zeta_{\mathrm{AC}}$}{Ratio of used to maximum output power by the \ac{AC}-\ac{DC}-converter}%
+\nomenclature{$P_{\mathrm{AC, out, max}}$}{Maximum output power of the \ac{AC}-\ac{DC}-converter in W}%
+
+The power consumption caused by \ac{AC}-\ac{DC}-conversion is then found as
+\begin{equation}
+ P_{\mathrm{AC}} = l_{\mathrm{AC}}(\zeta_{\mathrm{AC}}) \left( P_{\mathrm{PA}} + P_{\mathrm{RF}} + P_{\mathrm{BB}} + P_{\mathrm{DC}} \right).
+\end{equation}
+\nomenclature{$P_{\mathrm{AC}}$}{Power consumption of \ac{AC}-\ac{DC}-conversion in W}%
+\nomenclature{$l_{\mathrm{AC}}$}{Efficiency of \ac{AC}-\ac{DC}-conversion; a function of $\zeta_{\mathrm{AC}}$}%
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/loss_AC}
+\caption[\acs{AC} conversion loss function]{\ac{AC} conversion loss function $l_{\mathrm{AC}}(\zeta_{\mathrm{AC}})$ as measured within the \ac{EARTH} project.}
+\label{fig:Loss_AC}
+\end{figure}
+
+\ac{SOTA} \ac{AC}-\ac{DC}-converters are assumed to possess no special adaptation to sleep modes and, thus, remain activated during \ac{BS} sleep mode, with power consumption during sleep mode, $P_{\mathrm{AC,S}}$ in W,
+\begin{equation}
+ P_{\mathrm{AC,S}} = P_{\mathrm{AC}}.
+\end{equation}
+\nomenclature{$P_{\mathrm{AC,S}}$}{Power consumption of \ac{AC}-\ac{DC}-conversion in sleep mode in W}%
+
+The power consumption of the \ac{AC}-\ac{DC}-converter is shown as a function of $f$ in Fig.~\ref{fig:P_AC}. Although the converter has non-linear efficiencies, these seem to compensate for the non-linearities of the  components it powers. As a result, the power consumption curve is close to a straight line. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/P_AC_2x}
+\caption[$P_{\mathrm{AC}}$ as a function of bandwidth used]{\ac{AC}-\ac{DC}-converter power consumption as a function of bandwidth used.}
+\label{fig:P_AC}
+\end{figure}
+
+\subsubsection{Cooling}
+Macro \acp{BS} are typically housed in a cooled cabinet. This cooling is a very difficult effect to model. Cooling requirements vary greatly between different geographic locations, positioning in or on buildings and the size of the storage cabinet. Different vendors recommend different operating temperatures for their devices and these recommendations may not be followed by the network operators. Furthermore, cooling is generally a very slow process compared to the orders of timing in a \ac{BS}. Thus, considering cooling at its instantaneous power consumption may be misleading. As there is no simple solution to this problem, cooling is modelled as a fixed power loss.
+
+The heat dissipation of all other components needs to compensated for by active cooling. This heat dissipation can be assumed to be proportional to the power consumed. Thus, cooling power consumption is modelled to be proportional to the consumption of all other components. With cooling loss, $\xi_{\mathrm{COOL}}=0.12$, the power consumption of the cooling unit in W is
+\begin{equation}
+ P_{\mathrm{COOL}} = \xi_{\mathrm{COOL}} \left( P_{\mathrm{PA}} + P_{\mathrm{RF}} + P_{\mathrm{BB}} + P_{\mathrm{DC}} + P_{\mathrm{AC}} \right).
+\label{eq:P_COOL}
+\end{equation}
+\nomenclature{$P_{\mathrm{COOL}}$}{Power consumption of active \ac{BS} cooling in W}%
+\nomenclature{$\xi_{\mathrm{COOL}}$}{Cooling loss factor}%
+
+
+In this model, there are no further assumptions with regard to cooling during sleep mode. The power consumption of the cooling unit during sleep mode, $P_{\mathrm{COOL,S}}$ in W, is therefore identical, with
+\begin{equation}
+ P_{\mathrm{COOL,S}} = P_{\mathrm{COOL}}.
+\end{equation}
+\nomenclature{$P_{\mathrm{COOL,S}}$}{Power consumption of active \ac{BS} cooling in sleep mode in W}%
+
+The power consumption of the cooling unit as a function of $f$ is shown in Fig.~\ref{fig:P_COOL}. As it depends on all other components, it follows their power consumption behavior and is almost affine.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/P_COOL_2x}
+\caption[$P_{\mathrm{COOL}}$ as a function of bandwidth used]{Cooling power consumption as a function of bandwidth used.}
+\label{fig:P_COOL}
+\end{figure}
+
+\subsection{\ac{BS} Power Consumption}
+The power consumption, $P_{\mathrm{supply}}$ in W, of an entire \ac{LTE} \ac{BS} is found as the sum of its components. With $M_{\mathrm{sec}}$ the number of sectors,
+\begin{equation}
+ P_{\mathrm{supply}} = M_{\mathrm{sec}} \left( P_{\mathrm{PA}} + P_{\mathrm{RF}} + P_{\mathrm{BB}} + P_{\mathrm{DC}} + P_{\mathrm{AC}} + P_{\mathrm{COOL}}\right).
+\end{equation}
+\nomenclature{$P_{\mathrm{supply}}$}{\ac{BS} supply power consumption in W}%
+\nomenclature{$M_{\mathrm{sec}}$}{Number of sectors on a macro \ac{BS}}%
+
+\begin{figure}
+\centering
+\begin{subfigure}[t]{.8\textwidth}
+\includegraphics[width=\textwidth]{\dir/img/P_all_1x}
+\caption[\acs{BS} power consumption per component, $D=1$]{One antenna.}
+\label{fig:P_all_1x}
+\end{subfigure}
+
+\begin{subfigure}[t]{.8\textwidth}
+\includegraphics[width=\textwidth]{\dir/img/P_all_2x}
+\caption[\acs{BS} power consumption per component, $D=2$]{Two antennas.}
+\label{fig:P_all_2x}
+\end{subfigure}
+\caption[$P_{\mathrm{supply}}$ as a function of bandwidth used]{\acs{BS} power consumption per component as a function of bandwidth used.}
+\label{fig:P_all}
+\end{figure}
+
+It is illustrated in Fig.~\ref{fig:P_all} for $D=\{1,2\}$. Fig.~\ref{fig:P_all_percent} provides a normalized comparison of the shares of power consumption at the two edge points of Fig.~\ref{fig:P_all}, namely at zero and at full bandwidth. 
+
+In both cases, for $D=1$ and $D=2$, respectively, the largest contributors to power consumption, especially at full bandwidth transmission, are found to be the \acp{PA} with 56.6\% and 53.7\%. At zero bandwidth, with 25.8\% and 28.5\%, the \acp{PA} still consume a larger share of the power than other components, but significantly less than for higher transmission bandwidths. Therefore, reducing the \ac{PA} power consumption significantly affects the power consumption of the entire device. 
+
+With regard to sleep modes, for $D=1$ and $D=2$, respectively, they are estimated to lower consumption to 322~W and 583~W compared to an overall consumption of 437~W and 771~W at zero bandwidth, and 1025~W and 1419~W at full bandwidth usage. That corresponds to a reduction of power consumption by 26\% and 24\% at zero bandwidth and by 69\% and 59\% at full bandwidth usage. Thus, sleep modes can reduce the supply power consumption significantly, especially in high load operation.
+
+Overall, it is important to recognize that the power consumption of a \ac{BS} is far from constant and can be varied through operation parameters by as much as 69\%. To reduce its power consumption, it should be operated with low power, low bandwidth or in sleep mode. In addition, the slope of the variation is nearly constant over $f$ for both one and dual antenna operation. This allows to greatly simplify the power consumption model. 
+
+\begin{figure}
+\centering
+\begin{subfigure}[t]{0.65\textwidth}
+\includegraphics[width=\textwidth]{\dir/img/P_all_percent_1x}
+\caption[]{One antenna}\label{fig:P_all_percent_1x}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.65\textwidth}
+\includegraphics[width=\textwidth]{\dir/img/P_all_percent_2x}
+\caption[]{Two antennas}\label{fig:P_all_percent_2x}
+\end{subfigure}
+
+\caption[$P_{\mathrm{supply}}$ per component in percent]{\ac{BS} power consumption per component at zero and full bandwidth.}
+\label{fig:P_all_percent}
+\end{figure}
+
+The power model described in this section can be generated for other than macro \ac{BS} types such as micro, pico, femto or \ac{RRH} in similar fashion. However, as this thesis is only concerned with the power consumption of macro type \acp{BS}, these types are not discussed here.
+
+\section{The Parameterized Power Model}
+\label{parameterizedmodel}
+The power model described above is very useful for purposes of derivation, understanding, calibration and exploration of changes in architecture. The effect of changes to individual components on the power consumption of the entire \ac{BS} can be studied. However, it is often unnecessary to derive the power consumption of a \ac{BS} from the component level up. When exploring power saving techniques, only few parameters are varied regularly while many remain constant for an entire study. To address this need, this section proposes a simpler, parameterized power model. It abstracts architectural details for simplicity and only keeps those parameters which are regularly altered. It is based on the identification of power saving techniques.
+
+In literature, specific power saving techniques are suggested: namely, the effects of the number of antennas on power consumption~\cite{cgb0401}, the reduction of transmission power~\cite{hah1101_own,lcvc1101,mhl0801}, the deactivation of unneeded antennas~\cite{hafm1201,xylzcx1101}, the adaptation of the transmission bandwidth~\cite{abh1101,a1201} and the use of low power consumption sleep modes of varied durations~\cite{fmmjg1101,acc1201,vh1101,d1201}.
+% Refs removed during review: chp0801, lcvc1101,mhl0801,hafm1201,vh1101,abh1101,acc1201,d1201
+
+The parameterized model encompasses all of these approaches to allow a direct comparison while abstracting parameters which can either be assumed to be constant or have little effect in the studied scenarios, such as \ac{GOPS}, lookup tables, equipment manufacturing details or leakage powers. To this extent, only the following is covered in the proposed model:
+\begin{itemize}
+ \item The different \ac{BS} types of a heterogeneous network are modelled by applying different parameter sets to the same model equations. 
+ \item The number of transmission antennas and radio chains affects consumption during design and operation.
+ \item The same holds true for transmission power, which affects the design indirectly by choice of a suitable power amplifier as well as the operation directly. 
+ \item Also, transmission bandwidth and sleep modes are modelled to allow the investigation of their impact on \ac{BS} power consumption.
+\end{itemize}
+
+For parameterization, the maximum supply power consumption, $P_1$ in W, is first found establishing how power consumption scales with bandwidth, $W$, the number of \ac{BS} radio chains/antennas, $D$, and the maximum transmission power, $P_{\mathrm{max}}$. This requires the consideration the main units of a \ac{BS} as presented earlier: \ac{PA}, \ac{RF} small-signal transceiver, \ac{BB} unit, DC-DC converter, mains supply and active cooling. Summarizing Section~\ref{ch3:componentmodel}, the dependence of the \ac{BS} units on $W$, $D$ and $P_{\mathrm{max}}$ can be approximated as follows:
+\begin{itemize}
+ \item Both \ac{BB} and \ac{RF} power consumption, $P_\mathrm{BB}^{\mathrm{ppm}}$ in W and $P_\mathrm{RF}^{\mathrm{ppm}}$ in W, respectively, are assumed to scale nearly linearly with bandwidth, $W$, and the number of \ac{BS} antennas, $D$.
+ \item The \ac{PA} power consumption, $P_{\mathrm{PA}}^{\mathrm{ppm}}$, depends on the maximum transmission power per antenna, $P_{\mathrm{max}}/D$, and the \ac{PA} efficiency, $\eta_\mathrm{PA}$. Also, possible feeder cable losses, $\sigma_\mathrm{feed}$, have to be accounted for, such that
+\begin{equation}
+\label{ppa}
+ P_{\mathrm{PA}}^{\mathrm{ppm}} = \frac{P_{\mathrm{max}}}{D \eta_\mathrm{PA}(1{-}\sigma_\mathrm{feed})}.
+\end{equation}
+ \item Losses incurred by \ac{DC}-\ac{DC} conversion, \ac{AC}-\ac{DC} conversion and active cooling scale linearly with the power consumption of other components and may be approximated by the constant loss factors $\sigma_\mathrm{DC}$, $\sigma_\mathrm{AC}$, and $\sigma_\mathrm{COOL}$, respectively.
+\end{itemize}
+\nomenclature{$\eta_\mathrm{PA}$}{\ac{PA} efficiency in the parameterized model}%
+\nomenclature{$P_{\mathrm{max}}$}{\ac{BS} maximum sum transmission power in W}%
+
+These assumptions allow calculating the maximum power consumption of a \ac{BS} sector,
+\begin{equation}
+\label{p1}
+\begin{aligned}
+ P_1 = \frac{\left[ D \frac{W}{10~\mathrm{MHz}} \left( P_\mathrm{BB}^{\mathrm{ppm}} + P_\mathrm{RF}^{\mathrm{ppm}}   \right) + P_{\mathrm{PA}}^{\mathrm{ppm}} \right]}
+      {\displaystyle (1{-}\sigma_{\mathrm{DC}})(1{-}\sigma_{\mathrm{AC}})(1{-}\sigma_{\mathrm{COOL}}) }.
+\end{aligned}
+\end{equation}%
+\nomenclature{$\sigma_{\mathrm{AC}}$}{Loss factor for \ac{AC}-\ac{DC}-conversion in the parameterized model}%
+\nomenclature{$\sigma_{\mathrm{DC}}$}{Loss factor for \ac{DC}-\ac{DC}-conversion in the parameterized model}%
+\nomenclature{$\sigma_{\mathrm{COOL}}$}{Loss factor for active cooling in the parameterized model}%
+\nomenclature{$P_{\mathrm{PA}}^{\mathrm{ppm}}$}{Power consumption of the \acp{PA} in the parameterized model}%
+\nomenclature{$P_\mathrm{RF}^{\mathrm{ppm}}$}{Power consumption of the \acp{RF} transceivers in the parameterized model}%
+\nomenclature{$P_\mathrm{BB}^{\mathrm{ppm}}$}{Power consumption of the \ac{BB} units in the parameterized model}%
+
+An important characteristic of a \ac{PA} is that operation at lower transmit powers reduces the efficiency of the \ac{PA} and that, consequently, power consumption is not a linear function of the \ac{PA} output power. This is resolved by taking into account the ratio of maximum transmission power of a \ac{PA} from its data sheet, $P_{\mathrm{PA,limit}}$ in W, to the maximum transmission power of the \ac{PA} during operation, $\frac{P_{\mathrm{max}}}{D}$. In typical \acp{PA}, the current transmission power can be adjusted by adapting the DC supply voltage, which impacts the offset power of the \ac{PA}. The efficiency is assumed to decrease by a factor of $\theta$ for each halving of the transmission power. The efficiency is thus maximal when $P_{\mathrm{max}}=P_{\mathrm{PA,limit}}$ in single antenna transmission and is heuristically well-described by
+\begin{equation}
+ \eta_\mathrm{PA}= \eta_\mathrm{PA,max}\left[ 1-\theta \log_2 \left( \frac{P_{\mathrm{PA,limit}}}{P_{\mathrm{max}} / D} \right)  \right],
+\end{equation}
+where $\eta_\mathrm{PA,max}$ is the maximum \ac{PA} efficiency.
+\nomenclature{$\eta_\mathrm{PA,max}$}{Maximum \ac{PA} efficiency in the parameterized model}%
+\nomenclature{$\theta$}{\ac{PA} efficiency decrease}%
+\nomenclature{$P_{\mathrm{PA,limit}}$}{Maximum output power of the \ac{PA} in W}%
+
+The reduction of power consumption in sleep mode is achieved by powering off \acp{PA} and reduced computations necessary in the \ac{BB} engine. For simplicity, only the dependence on $D$ is modelled as each \ac{PA} is powered off.  Thus, $P_{\mathrm{S}}$, is approximated as
+\begin{equation}
+ P_{\mathrm{S}} = D P_{\mathrm{S},0},
+\label{eq:p_sleep}
+\end{equation}
+where $P_{\mathrm{S},0}$ is a reference value for the single antenna \ac{BS} chosen such that $P_{\mathrm{S}}$ matches the complex model power consumption for two antennas.
+\nomenclature{$P_{\mathrm{S},0}$}{Reference value for the single antenna \ac{BS} sleep mode power consumption in W}%
+
+It can be approximated from Fig.~\ref{fig:P_all} to treat the supply power consumption as an affine function of the bandwidth and, thus,---given constant power spectral density---of the transmission power. In other words, the consumption can be represented by a static (load-independent) share, $P_0$ in W, with an added load-dependent share that increases linearly by a power gradient, $\Delta_{\mathrm{p}}$, see Figure~\ref{fig:loaddeppm}. The maximum supply power consumption, $P_1$ in W, is reached when transmitting at maximum total transmission power, $P_{\mathrm{max}}$. Furthermore, a \ac{BS} may enter a sleep mode with lowered consumption, $P_{\mathrm{S}}$, when it is not transmitting. Total power consumption considering the number of sectors, $M_{\mathrm{sec}}$, is then formulated as
+\begin{equation}
+\label{eq:psupply}
+ P_{\mathrm{supply}}(\chi) = 
+  \begin{cases}
+   M_{\mathrm{sec}}  \left( P_1 + \Delta_{\mathrm{p}} P_{\mathrm{max}} (\chi - 1) \right)			& \text{if } 0 < \chi \leq 1  \\
+   M_{\mathrm{sec}} P_{\mathrm{S}}      	& \text{if } \chi = 0,
+  \end{cases}
+\end{equation}
+where $P_1 =  P_0 + \Delta_{\mathrm{p}} P_{\mathrm{max}}$. The scaling parameter, $\chi$, is the load share, where $\chi=1$ indicates a fully loaded system, \eg~transmitting at full power and full bandwidth, and $\chi=0$ indicates an idle system.
+\nomenclature{$P_1$}{\ac{BS} power consumption at maximum load in W}%
+\nomenclature{$\Delta_{\mathrm{p}}$}{Power consumption load factor}%
+\nomenclature{$\chi$}{Transmission load share}%
+\nomenclature{$P_{\mathrm{S}}$}{\ac{BS} power consumption in sleep mode in W}%
+\nomenclature{$P_0$}{Idle \ac{BS} power consumption (at zero transmission power) in W}%
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{\dir/img/PM}
+ \caption[Load-dependent power model for an \acs{LTE} \acs{BS}]{Load-dependent power model for an \ac{LTE} \ac{BS}.}
+\label{fig:loaddeppm}
+\end{figure}
+
+The parameterized power model is applied to approximate the consumption of the \ac{BS} which was described in the component model. Parameters are chosen where possible according to~\cite{aggsoigdb1101}, such as losses, efficiencies and power limits. The remaining parameters are adapted such that a closer match to the component model could be achieved. The resulting parameter breakdown is provided in Table~\ref{tab:powerbreakdownmaximumload}. The two power models are compared over $f$ for one and two antennas in Figure~\ref{fig:comparison_cmplx_param}. Although two parameters, the bandwidth and the number of \ac{BS} antennas, are varied, the parameterized model can be seen to closely approximate the complex model for all \ac{BS} types. The largest deviation of the parameterized model from the complex model occurs when modeling four transmit antennas. This is caused by the fact that the parameterized model considers a constant slope, $\Delta_{\mathrm{p}}$, which is independent of $D$. In contrast, the \ac{PA} efficiency in the complex model decreases with rising $D$, leading to an increasing slope which can not be matched by a constant slope. This deviation is a trade-off between simplicity and model accuracy. 
+
+In addition to providing a solid reference, the model and the parameters can provide a basis for exploration. Individual parameters can be changed to observe the resulting variation in power consumption. With regard to the number of antennas, the parameterized model can only be verified up to four antennas, which is the extent of the complex model. Extending the system bandwidth, for example to 20~MHz, is expected to increase the \ac{BB} and \ac{RF} power consumption. The other parameters such as the transmission power and losses are expected to remain unaffected by different system bandwidths. Adapting the design maximum transmission power, $P_{\mathrm{max}}$, affects the \ac{PA} efficiencies, which decrease with $P_{\mathrm{max}}$.
+
+% \begin{table*}[t]
+% \centering
+% \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+% \hline
+% \ac{BS} type 	& $P_{\mathrm{PA,limit}}$	& $\eta_\mathrm{PA,max}$	& $\theta$	& $P_\mathrm{BB}$	& $P_\mathrm{RF}$	& $\sigma_\mathrm{feed}$	& $\sigma_\mathrm{DC}$	& $\sigma_\mathrm{cool}$	& $\sigma_\mathrm{MS}$ 	& $M_{\mathrm{Sec}}$ 	& $P_{\mathrm{max}}$  	& $P_{1}$  	 	& $\Delta_{\mathrm{p}}$ & $P_{\mathrm{S},0}$\\
+% 		& /W			&				&		&	/W		&	/W		&				&			&				&			&			&		/W	&	/W	& *10\,MHz		& /W\\
+% \hline
+% Macro		 			& 	80.00	& 	0.36& 	0.15& 	29.4& 	12.9& 	0.5& 	0.075& 	0.1& 	0.09& 	3& 	40.00& 	460.4 & 		4.2 &	324.0 \\
+% \hline
+% Pico		 			&	0.25& 	0.08& 	0.20& 	4.0& 	1.2& 	0.0& 	0.09& 	0.0& 	0.11& 	1& 	0.25& 	17.4& 	4& 	4.9\\
+% \hline
+% Femto		 			& 	0.10& 	0.05& 	0.10& 	2.5& 	0.6& 	0.0& 	0.09& 	0.0& 	0.11& 	1& 	0.10& 	12.0& 	4& 	3.3\\
+% \hline
+% \end{tabular}
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+ $P_{\mathrm{PA,limit}}$	& $\eta_\mathrm{PA,max}$	& $\theta$	& $P_\mathrm{BB}$	& $P_\mathrm{RF}$	& $\sigma_\mathrm{feed}$	& $\sigma_\mathrm{DC}$	& $\sigma_\mathrm{COOL}$	& $\sigma_\mathrm{AC}$ 	& $M_{\mathrm{Sec}}$ 	\\
+ /W			&				&		&	/W		&	/W		&				&			&	&&\\
+\hline
+ 	80.00		& 	0.36			& 	0.15	& 	29.4		& 	12.9		& 	0.5			& 	0.075		& 	0.1
+& 	0.09	& 	3			\\
+\hline
+\end{tabular}
+\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+ $P_{\mathrm{max}}$  	& $P_{1}$  		& $\Delta_{\mathrm{p}}$ & $P_{\mathrm{S},0}$\\
+		/W		&	/W		& *10\,MHz		& /W\\
+\hline
+	40.00		& 	460.4 		& 	4.2 		&	324.0 \\
+\hline
+\end{tabular}
+
+\caption[Parameter breakdown]{Parameter breakdown.}
+\label{tab:powerbreakdownmaximumload}
+\end{table*}
+
+
+\begin{figure}
+\centering
+
+\begin{subfigure}[t]{0.8\textwidth}
+\includegraphics[width=\textwidth]{\dir/img/comparison_cmplx_param_1x}
+\caption[]{One antenna}\label{fig:comparison_cmplx_param_1x}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.8\textwidth}
+\includegraphics[width=\textwidth]{\dir/img/comparison_cmplx_param_2x}
+\caption[]{Two antennas}\label{fig:comparison_cmplx_param_2x}
+\end{subfigure}
+
+ \caption[Comparison of the parameterized with the complex model]{Comparison of the parameterized with the complex model~\cite{ddgfahwsr1201_own} power models for the macro \ac{BS} type with 40~W transmission power.}
+\label{fig:comparison_cmplx_param}
+\end{figure}
+
+\section{The Affine Power Model}
+\label{affinemodel}
+In preparation for the following chapters of this thesis, one more simplification to power modeling is made. When input parameters for \eqref{p1} and \eqref{eq:p_sleep} are not changed, the power model can be reduced to \eqref{eq:psupply} as a function of the load $\chi$. When considering \ac{AA}, a separation has to be made depending on $D$. This simplification carries the benefit of turning the power model into an affine function. As will be shown in the next chapter, the treatment of power consumption as an affine function maintains convexity. 
+
+Let the general affine model be
+\begin{equation}
+\label{eq:affinemodel}
+ P_{\mathrm{supply}}(\chi) = 
+  \begin{cases}
+   3  \left( P_{1,D} + \Delta_{\mathrm{p}} P_{\mathrm{max}} (\chi - 1) \right)			& \text{if } 0 < \chi \leq 1,  \\
+   3 \cdot P_{\mathrm{S},D}      	& \text{if } \chi = 0,
+  \end{cases}
+\end{equation}
+with $P_{1,D} =  P_{0,D} + \Delta_{\mathrm{p}} P_{\mathrm{max}}$.
+\nomenclature{$P_{1,D}$}{\ac{BS} power consumption at maximum load in the affine model in W}%
+\nomenclature{$P_{0,D}$}{Idle \ac{BS} power consumption (at zero transmission power) in the affine model in W}%
+\nomenclature{$P_{\mathrm{S},D}$}{\ac{BS} power consumption in sleep mode in the affine model in W}%
+
+For the remainder of this thesis, power consumption will therefore be modelled according to \eqref{eq:affinemodel}. This is a combination of the parameterized affine function and the component model sleep mode value in Fig.~\ref{fig:comparison_cmplx_param}. 
+
+For later reference, the affine power model for a single antenna \ac{BS} is explicitly written as
+\begin{equation}
+\label{eq:affinemodel1x}
+ P_{\mathrm{supply}}(\chi) = 
+  \begin{cases}
+   3 \left( 354 + 4.2 P_{\mathrm{max}} (\chi - 1) \right)			& \text{if } 0 < \chi \leq 1,  \\
+   321      	& \text{if } \chi = 0.
+  \end{cases}
+\end{equation}
+
+The affine power model for a two-antenna \ac{BS} is
+\begin{equation}
+\label{eq:affinemodel2x}
+ P_{\mathrm{supply}}(\chi) = 
+  \begin{cases}
+   3 \left( 460 + 4.2 P_{\mathrm{max}} (\chi - 1) \right)			& \text{if } 0 < \chi \leq 1,  \\
+   648      	& \text{if } \chi = 0.
+  \end{cases}
+\end{equation}
+
+A tabular summary is provided in Table~\ref{tab:affinepmparameters}.
+
+\begin{table}
+ \centering
+\begin{tabular}{c | c c c c}
+$D$ 	& $P_{1,D}$ 	&$P_{0,D}$ 	&$P_{\mathrm{S},D}$	&$\Delta_{\mathrm{p}}$  \\
+	&	/W	&	/W	&	/W		& 			\\
+ \hline
+1	& 354 		& 186 		& 107 			&4.2			\\
+2 	& 460		& 292		& 216			&4.2			\\
+\end{tabular}
+\caption[Summary of affine power model parameters]{Summary of affine power model parameters.}
+\label{tab:affinepmparameters}
+\end{table}
+
+\section{Summary}
+\label{ch3:summary}
+In this chapter, three different power models have been derived, namely the component model, the parameterized model, and the affine model. The component model was derived by first defining the architecture of a typical \ac{LTE} \ac{BS} and then inspecting each component with regard to its power consumption. The \ac{PA} was found to have a power consumption which strongly depends on the transmission power with some capability for sleep mode. The \ac{RF} transceiver in its current implementation has limited adaptability and, therefore, constant power consumption. The \ac{BB} unit's power consumption is determined by the internal computing operations, some of which can be reduced for power saving. The power consumption components such as power conversions and cooling, strongly depends on the power consumption of other components. Altogether, the power consumption of the individual components comprises the component \ac{BS} power model. While very detailed and necessary for derivation, the component model is too elaborate for many uses. To address this complexity, the parameterized power model was derived from it, which only considers typical operating parameters while abstracting architectural and technical details. It was shown to closely approximate the component model for a range of parameters. Instead of using measured vector data in the model, all input parameters are generalized to scalars. When employed in an analytical context, a further fixation of input parameters is advisable, yielding the affine model. Overall, the number of input parameters including experimental data was reduced from 15~parameters (out of which 8~are vectors) in the component model to 14~scalar parameters in the parameterized model and to four scalar parameters in the affine model. See Table~\ref{tab:pmcomparison} on page~\pageref{tab:pmcomparison} for the detailed comparison.
+
+\begin{table}
+\centering
+\begin{tabular}{l c c c}
+Parameter 			& \begin{tabular}{@{}c@{}}Component \\ model\end{tabular}  	& \begin{tabular}{@{}c@{}}Parameterized \\ model\end{tabular}  	& \begin{tabular}{@{}c@{}}Affine \\ model\end{tabular} \\
+\hline
+Feeder loss 			& S		& S		& \\
+\ac{PA} efficiency 		& V		& S		& \\
+\ac{PA} sleep consumption	& S		& 		& \\
+\ac{RF} consumption 		& V		& S		& \\
+\ac{BB} consumption 	 	& V		& S		& \\
+Scaling exponent for $D$	& V		& 		& \\
+Scaling exponent for $f$ 	& V		& 		& \\
+Sleep switching \ac{BB} 	& V		& 		& \\
+\ac{DC}-\ac{DC} loss		& V		& S		& \\
+Maximum \ac{DC}-\ac{DC} output 	& S		& 		& \\
+\ac{AC}-\ac{DC} loss 		& V		& S		& \\
+Maximum \ac{AC}-\ac{DC} output	& S		& 		& \\
+Cooling efficiency 		& S		& S		& \\
+Number of sectors 		& S		& S		& \\
+Number of radio chains 		& S		& S		& S\\
+Maximum transmission power 	& 		& S		& \\
+\ac{PA} efficiency decrease	& 		& S		& \\
+\ac{PA} limit	 		& 		& S		& \\
+Sleep consumption reference	&		& S		& S\\
+Power consumption load factor 	& 		& S		& S\\
+Maximum power consumption	&		&		& S\\
+\hline\hline
+Number of Vectors (V) 		& 8		&0		&0 \\
+Number of Scalars (S)		& 7		&14		&4\\
+\end{tabular}
+\caption[Comparison of required input parameters for different power models]{Comparison of required input parameters for different power models.}
+\label{tab:pmcomparison}
+\end{table}

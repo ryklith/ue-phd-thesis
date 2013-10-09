@@ -1,0 +1,87 @@
+\chapter{Power Saving on the Device Level}
+\label{ch:device}
+
+\section{Overview}
+Power models describe ...
+
+\section{Challenges in Power Modeling}
+\label{ch3:challenges}
+Generic modeling of \ac{BS} power consumption is not a trivial task for multiple reasons...
+
+\section{Existing Power Models}
+\label{ch3:existing}
+In literature, three distinct power models for wireless transmitters are proposed and applied...
+
+\section{The Component Power Model}
+\label{ch3:componentmodel}
+Before the description of the model, it is necessary to make some introductory remarks.
+
+\subsection{Remarks}
+
+First, ...
+
+\subsection{The Components of a \ac{BS}}
+The modelled \ac{LTE} macro \ac{BS} consists of ...
+
+\subsubsection{Antenna Interface}
+This passive component is ...
+
+\subsubsection{\ac{PA}}
+The \ac{PA} amplifies ...
+
+
+\subsubsection{\ac{RF} Transceiver}
+The \ac{RF} transceiver provides the signal conversion ...
+
+\subsubsection{\ac{BB} Unit}
+The \ac{BB} unit generates ...
+
+
+\subsubsection{\ac{DC}-\ac{DC}-Conversion}
+To supply the required \ac{DC} voltages ...
+
+\subsubsection{Mains Supply/\ac{AC}-\ac{DC}-Conversion}
+Power from the the \ac{AC} mains grid is converted to \ac{DC} by the mains power supply unit...
+
+\subsubsection{Cooling}
+Macro \acp{BS} are typically housed in a cooled cabinet...
+
+\subsection{\ac{BS} Power Consumption}
+The power consumption...
+
+\section{The Parameterized Power Model}
+\label{parameterizedmodel}
+The power model described above is ...
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+ $P_{\mathrm{PA,limit}}$	& $\eta_\mathrm{PA,max}$	& $\theta$	& $P_\mathrm{BB}$	& $P_\mathrm{RF}$	& $\sigma_\mathrm{feed}$	& $\sigma_\mathrm{DC}$	& $\sigma_\mathrm{COOL}$	& $\sigma_\mathrm{AC}$ 	& $M_{\mathrm{Sec}}$ 	\\
+ /W			&				&		&	/W		&	/W		&				&			&	&&\\
+\hline
+ 	80.00		& 	0.36			& 	0.15	& 	29.4		& 	12.9		& 	0.5			& 	0.075		& 	0.1
+& 	0.09	& 	3			\\
+\hline
+\end{tabular}
+\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+ $P_{\mathrm{max}}$  	& $P_{1}$  		& $\Delta_{\mathrm{p}}$ & $P_{\mathrm{S},0}$\\
+		/W		&	/W		& *10\,MHz		& /W\\
+\hline
+	40.00		& 	460.4 		& 	4.2 		&	324.0 \\
+\hline
+\end{tabular}
+
+\caption[Parameter breakdown]{Parameter breakdown.}
+\label{tab:powerbreakdownmaximumload}
+\end{table*}
+
+\section{The Affine Power Model}
+\label{affinemodel}
+In preparation for the following chapters of this thesis...
+
+\section{Summary}
+\label{ch3:summary}
+In this chapter, ...

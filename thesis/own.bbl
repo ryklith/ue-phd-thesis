@@ -1,0 +1,90 @@
+\begin{thebibliography}{h}
+
+\bibitem[a]{aghimfbhz1001_own}
+Gunther Auer, Istv\'an G\'odor, L\'aszl\'o H\'evizi, Muhammad~Ali Imran, Jens
+  Malmodin, P\'eter Fasekas, Gergely Bicz\'ok, \textbf{Hauke Holtkamp},
+  Dietrich Zeller, Oliver Blume, and Rahim Tafazolli.
+\newblock {Enablers for Energy Efficient Wireless Networks}.
+\newblock In {\em {Proceedings of the IEEE Vehicular Technology Conference
+  (VTC) Fall-2010}}, 2010.
+
+\bibitem[b]{ha1101_own}
+\textbf{Hauke Holtkamp} and Gunther Auer.
+\newblock {Fundamental Limits of Energy-Efficient Resource Sharing, Power
+  Control and Discontinuous Transmission}.
+\newblock In {\em {Proceedings of the Future Network \& Mobile Summit 2011}},
+  2011.
+
+\bibitem[c]{hah1101a_own}
+\textbf{Hauke Holtkamp}, Gunther Auer, and Harald Haas.
+\newblock {Minimal Average Consumption Downlink Base Station Power Control
+  Strategy}.
+\newblock In {\em Proceedings of the 2011 IEEE 22nd International Symposium on
+  Personal Indoor and Mobile Radio Communications (PIMRC)}, pages 2430--2434,
+  Sept 2011.
+
+\bibitem[d]{hah1101_own}
+\textbf{Hauke Holtkamp}, Gunther Auer, and Harald Haas.
+\newblock {On Minimizing Base Station Power Consumption}.
+\newblock In {\em {Proceedings of the Vehicular Technology Conference (VTC)
+  Fall-2011}}, 2011.
+
+\bibitem[e]{ddgfahwsr1201_own}
+Claude Desset, Bj\"{o}rn Debaillie, Vito Giannini, Albrecht Fehske, Gunther
+  Auer, \textbf{Hauke Holtkamp}, Wieslawa Wajda, Dario Sabella, Fred Richter,
+  Manuel Gonzalez, Henrik Klessig, Istv\'an G\'odor, Per Skillermark, Magnus
+  Olsson, Muhammad~Ali Imran, Anton Ambrosy, and Oliver Blume.
+\newblock {Flexible Power Modeling of LTE Base Stations}.
+\newblock In {\em {Proceedings of the 2012 IEEE Wireless Communications and
+  Networking Conference:}}, 2012.
+
+\bibitem[f]{std:earthd22_own}
+{EARTH Project Work Package 2}.
+\newblock {Deliverable D2.2: Reference Systems and Scenarios}.
+\newblock Retrieved April 18, 2013, from
+  \url{https://www.ict-earth.eu/publications/deliverables/deliverables.html},
+  June 2012.
+\newblock \textbf{Hauke Holtkamp} is an editor.
+
+\bibitem[g]{std:earthd33_own}
+{EARTH Project Work Package 3}.
+\newblock {Deliverable D3.3: Green Network Technologies}.
+\newblock Retrieved April 18, 2013, from
+  \url{https://www.ict-earth.eu/publications/deliverables/deliverables.html},
+  June 2012.
+\newblock \textbf{Hauke Holtkamp} is an author.
+
+\bibitem[h]{hag1301_own}
+\textbf{Hauke Holtkamp}, Gunther Auer, Vito Giannini, and Harald Haas.
+\newblock {A Parameterized Base Station Power Model}.
+\newblock {\em {IEEE Communications Letters}}, 2013.
+\newblock Accepted for publication on 16 August 2013.
+
+\bibitem[i]{hh1301_own}
+\textbf{Hauke Holtkamp} and Harald Haas.
+\newblock {OFDMA Base Station Power-saving Via Joint Power Control and DTX in
+  Cellular Systems}.
+\newblock In {\em {Proceedings of the Vehicular Technology Conference (VTC)
+  Fall-2013}}, 2013.
+
+\bibitem[j]{habh1301_own}
+\textbf{Hauke Holtkamp}, Gunther Auer, Samer Bazzi, and Harald Haas.
+\newblock {Minimizing Base Station Power Consumption}.
+\newblock {\em {IEEE Journal on Selected Areas in Communications}}, PP(99),
+  December 2014.
+
+\bibitem[k]{hdh1301_own}
+\textbf{Hauke Holtkamp}, Guido Dietl, and Harald Haas.
+\newblock {Distributed DTX Alignment with Memory}.
+\newblock In {\em Proceedings of the 2014 IEEE International Conference on
+  Communications (ICC)}, Sydney, Australia, June 2014.
+\newblock Submitted on Aug 15, 2013.
+
+\bibitem[l]{wrz1201_own}
+Jinsong Wu, Sundeep Rangan, and Honggang Zhang.
+\newblock {\em {Green Communications: Theoretical Fundamentals, Algorithms and
+  Applications}}.
+\newblock Taylor \& Francis Group, September 2012.
+\newblock \textbf{Hauke Holtkamp} is a coauthor of Chapter 17.
+
+\end{thebibliography}

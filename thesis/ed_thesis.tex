@@ -1,0 +1,36 @@
+\documentclass[openright,twoside,a4paper,english,12pt]{report}
+
+%% ==========================
+%% main LaTeX set up for a Geology and Geophysics thesis keeps evolving into unknown
+%% yet funky beasties. I borrowed this set-up from Kathryn Hardacre who got it from 
+%% Jon Perry. Undoubtedly, I will add some extras as well
+%% magi
+
+\usepackage{edthesis}
+\input{../common/packages.tex}
+
+%% some handy macros
+\input{../common/definitions.tex}
+
+%========================= ALTERATIONS ========================= 
+
+%Paragraphs
+\setlength{\parindent}{0em}
+\setlength{\parskip}{\baselineskip}
+
+%Alternative methods
+%\lefthyphenmin=63
+%\righthyphenmin=63
+%\hyphenpenalty=10000
+
+%To introduce 1.5 spacing
+\renewcommand{\baselinestretch}{1.5}
+\makenomenclature
+
+\begin{document}
+\newboolean{edthesis}
+\setboolean{edthesis}{true}
+%\setboolean{edthesis}{false}
+
+\input{thesis.tex}---
+\end{document}

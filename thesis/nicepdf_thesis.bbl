@@ -1,0 +1,615 @@
+\begin{thebibliography}{100}
+
+\bibitem{bzm0101}
+Q.~Bi, G.~Zysman, and H.~Menkes, ``{Wireless Mobile Communications at the Start
+  of the 21st Century},'' {\em Communications Magazine, IEEE}, vol.~39, no.~1,
+  pp.~110--116, 2001.
+
+\bibitem{wtjhj1101}
+G.~Wu, S.~Talwar, K.~Johnsson, N.~Himayat, and K.~Johnson, ``{M2M: From Mobile
+  to Embedded Internet},'' {\em Communications Magazine, IEEE}, vol.~49, no.~4,
+  pp.~36--43, 2011.
+
+\bibitem{book:bddrl0501}
+J.~Brazell, L.~Donoho, J.~Dexheimer, P.~Robert~Hannenman, and G.~Langdon, {\em
+  {M2M: The Wireless Revolution}}.
+\newblock Texas State Technical College Publishing, 2005.
+
+\bibitem{w1001}
+{Wireless Week}, ``Cisco: 1 trillion connected devices by 2013.''
+  \url{http://www.wirelessweek.com/news/2010/03/cisco-1-trillion-connected-dev%
+ices-2013}, Mar. 2010.
+\newblock Retrieved 14 Apr. 2013.
+
+\bibitem{c1301}
+{Cisco}, ``{Cisco Visual Networking Index: Global MobilebData Traffic Forecast
+  Update, 2012--2017}.'' \url{http://www.cisco.com/}, 2013.
+\newblock Retrieved 18 Apr. 2013.
+
+\bibitem{fmbf1001}
+A.~Fehske, J.~Malmodin, G.~Bicz\'ok, and G.~Fettweis, ``{The Global Carbon
+  Footprint of Mobile Communications - The Ecological and Economic
+  Perspective},'' {\em {IEEE Communications Magazine}}, 2010.
+
+\bibitem{aggsoisgd1101}
+G.~Auer, V.~Giannini, I.~G\'odor, P.~Skillermark, M.~Olsson, M.~Imran,
+  D.~Sabella, M.~J. Gonzalez, and C.~Desset, ``{Cellular Energy Efficiency
+  Evaluation Framework},'' in {\em {Proceedings of the VTC 2011-Spring}}, 2011.
+
+\bibitem{std:earthd23}
+{EARTH Project Work Package 2}, ``{Deliverable D2.3: Energy Efficiency Analysis
+  of the Reference Systems, Areas of Improvements and Target Breakdown}.''
+  \url{https://www.ict-earth.eu/publications/deliverables/deliverables.html},
+  Nov. 2010.
+\newblock Retrieved Apr. 18, 2013.
+
+\bibitem{gfwem1101}
+M.~Gonzalez, D.~Ferling, W.~Wajda, A.~Erdem, and P.~Maugars, ``{Concepts for
+  Energy Efficient LTE Transceiver Systems in Macro Base Stations},'' in {\em
+  Future Network Mobile Summit (FutureNetw), 2011}, pp.~1--8, 2011.
+
+\bibitem{std:earthd43}
+{EARTH Project Work Package 4}, ``{Deliverable D4.3: Final Report on Green
+  Radio Technologies}.''
+  \url{https://www.ict-earth.eu/publications/deliverables/deliverables.html},
+  June 2012.
+\newblock Retrieved Apr. 18, 2013.
+
+\bibitem{01b}
+``{EARTH - Energy Aware Radio and neTwork TecHnologies}.''
+  \url{http://www.ict-earth.eu}.
+\newblock Retrieved 17 June 2013.
+
+\bibitem{mmlfl1001}
+J.~Malmodin, A.~Moberg, D.~Lund\'{e}n, G.~Finnveden, and N.~L\"{o}vehagen,
+  ``{Greenhouse Gas Emissions and Operational Electricity Use in the ICT and
+  Entertainment \& Media Sectors},'' {\em Journal of Industrial Ecology},
+  vol.~14, no.~5, pp.~770--790, 2010.
+
+\bibitem{ls0801}
+J.~Louhi and H.~Scheck, ``{Energy Efficiency of Cellular Networks},'' in {\em
+  Proc. Int. Symp. Wireless Personal Multimedia Communications (WPMC), Lapland,
+  Finland}, 2008.
+
+\bibitem{ahjlss1001}
+K.~Aleklett, M.~H\"{o}\"{o}k, K.~Jakobsson, M.~Lardelli, S.~Snowden, and
+  B.~S\"{o}derbergh, ``{The Peak of the Oil Age – Analyzing the World Oil
+  Production Reference Scenario in World Energy Outlook 2008},'' {\em Energy
+  Policy}, vol.~38, no.~3, pp.~1398 -- 1414, 2010.
+
+\bibitem{fz0801}
+G.~Fettweis and E.~Zimmermann, ``{ICT Energy Consumption -- Trends and
+  Challenges},'' in {\em Proceedings of the 11th International Symposium on
+  Wireless Personal Multimedia Communications (WPMC 2008)}, 2008.
+
+\bibitem{nnr1001}
+P.~Nema, R.~Nema, and S.~Rangnekar, ``{Minimization of Green House Gases
+  Emission by using Hybrid Energy System for Telephony Base Station Site
+  Application},'' {\em Renewable and Sustainable Energy Reviews}, vol.~14,
+  no.~6, pp.~1635--1639, 2010.
+
+\bibitem{hhakvghtk1101}
+C.~Han, T.~Harrold, S.~Armour, I.~Krikidis, S.~Videv, P.~M. Grant, H.~Haas,
+  J.~S. Thompson, I.~Ku, C.-X. Wang, {\em et~al.}, ``{Green Radio: Radio
+  Techniques to Enable Energy-efficient Wireless Networks},'' {\em
+  Communications Magazine, IEEE}, vol.~49, no.~6, pp.~46--54, 2011.
+
+\bibitem{s1201}
+Y.~Sugiyama, ``{Green ICT toward Low Carbon Society},'' in {\em Design for
+  Innovative Value Towards a Sustainable Society} (M.~Matsumoto, Y.~Umeda,
+  K.~Masui, and S.~Fukushige, eds.), pp.~739--742, Springer Netherlands, 2012.
+
+\bibitem{o1201}
+{NTT DOCOMO Technical Journal Editorial Office}, ``{Measures for Recovery from
+  the Great East Japan Earthquake using NTT DOCOMO R\&D Technology},'' {\em NTT
+  DOCOMO Technical Journal}, vol.~13, no.~4, pp.~96--106, 2012.
+
+\bibitem{r1101}
+Y.~Ran, ``{Considerations and Suggestions on Improvement of Communication
+  Network Disaster Countermeasures after the Wenchuan Earthquake},'' {\em
+  Communications Magazine, IEEE}, vol.~49, no.~1, pp.~44--47, 2011.
+
+\bibitem{aggsoigdb1101}
+G.~Auer, V.~Giannini, I.~G\'odor, P.~Skillermark, M.~Olsson, M.~A. Imran, M.~J.
+  Gonzalez, C.~Desset, O.~Blume, and A.~Fehske, ``{How Much Energy is Needed to
+  Run a Wireless Network?},'' {\em IEEE Wireless Communications}, vol.~18,
+  pp.~40 --49, Oct 2011.
+
+\bibitem{arfb1001}
+O.~Arnold, F.~Richter, G.~Fettweis, and O.~Blume, ``{Power Consumption Modeling
+  of Different Base Station Types in Heterogeneous Cellular Networks},'' in
+  {\em Future Network and Mobile Summit, 2010}, pp.~1 --8, June 2010.
+
+\bibitem{akrswv0101a}
+M.~Andrews, K.~Kumaran, K.~Ramanan, A.~Stolyar, P.~Whiting, and R.~Vijayakumar,
+  ``{Providing Quality of Service over a Shared Wireless Link},'' {\em
+  Communications Magazine, IEEE}, vol.~39, no.~2, pp.~150--154, 2001.
+
+\bibitem{bzb1001}
+O.~Blume, D.~Zeller, and U.~Barth, ``{Approaches to Energy Efficient Wireless
+  Access Networks},'' in {\em 4th International Symposium on Communications,
+  Control and Signal Processing (ISCCSP)}, pp.~1 --5, 3-5 2010.
+
+\bibitem{yhe0201}
+W.~Ye, J.~Heidemann, and D.~Estrin, ``{An Energy-Efficient {MAC} Protocol for
+  Wireless Sensor Networks},'' {\em {INFOCOM 2002. Twenty-First Annual Joint
+  Conference of the IEEE Computer and Communications Societies. Proceedings.
+  IEEE}}, vol.~3, pp.~1567--1576, 2002.
+
+\bibitem{cgb0401}
+S.~Cui, A.~J. Goldsmith, and A.~Bahai, ``{Energy-Efficiency of MIMO and
+  Cooperative MIMO Techniques in Sensor Networks},'' {\em IEEE Journal on
+  Selected Areas in Communications}, 2004.
+
+\bibitem{cgb0501}
+S.~Cui, A.~J. Goldsmith, and A.~Bahai, ``{Energy-Constrained Modulation
+  Optimization},'' {\em {IEEE Transactions on Wireless Communications}},
+  vol.~4, pp.~2349--2360, 2005.
+
+\bibitem{bk0401a}
+R.~Bhatia and M.~Kodialam, ``{On Power Efficient Communication over Multi-hop
+  Wireless Networks: oint Routing, Scheduling and Power Control},'' in {\em
+  INFOCOM 2004. Twenty-third AnnualJoint Conference of the IEEE Computer and
+  Communications Societies}, vol.~2, pp.~1457--1466, IEEE, 2004.
+
+\bibitem{mob0101}
+J.~Malmodin, L.~Oliv, and P.~Bergmark, ``{Life Cycle Assessment of Third
+  Generation (3G) Wireless Telecommunication Systems at Ericsson},'' in {\em
+  Environmentally Conscious Design and Inverse Manufacturing, 2001. Proceedings
+  EcoDesign 2001: Second International Symposium on}, pp.~328--334, 2001.
+
+\bibitem{wl0001}
+E.~Weidman and S.~Lundberg, ``{Life Cycle Assessment of Ericsson Third
+  Generation Systems},'' in {\em Electronics and the Environment, 2000. ISEE
+  2000. Proceedings of the 2000 IEEE International Symposium on}, pp.~136--142,
+  2000.
+
+\bibitem{m01}
+{Mobile VCE}, ``{Website of the Green Radio Project}.''
+  \url{http://www.mobilevce.com/green-radio}.
+\newblock Retrieved 12 June, 2013.
+
+\bibitem{gbfzis0901}
+M.~Gruber, O.~Blume, D.~Ferling, D.~Zeller, M.~Imran, and E.~Strinati,
+  ``{EARTH: Energy Aware Radio and Network Technologies},'' in {\em Personal,
+  Indoor and Mobile Radio Communications, 2009 IEEE 20th International
+  Symposium on}, pp.~1--5, 2009.
+
+\bibitem{fbzfgjt1001}
+D.~Ferling, T.~Bohn, D.~Zeller, P.~Frenger, I.~G\'odor, Y.~Jading, and
+  W.~Tomaselli, ``{Energy Efficiency Approaches for Radio Nodes},'' in {\em
+  Future Network \& Mobile Summit 2010}, 2010.
+
+\bibitem{bdgd1101}
+S.~Bories, L.~Dussopt, A.~Giry, and C.~Delaveaud, ``{Duplexer-less RF Front-end
+  for LTE Pico-Cell using a Dual Polarization Antenna},'' in {\em Wireless
+  Conference 2011 - Sustainable Wireless Technologies (European Wireless), 11th
+  European}, pp.~1--3, 2011.
+
+\bibitem{hkhg1001}
+O.~Hammi, A.~Kwan, M.~Helaoui, and F.~M. Ghannouchi, ``{Green Power
+  Amplification Systems for 3G+ Wireless Communication Infrastructure},'' in
+  {\em Vehicular Technology Conference Fall (VTC 2010-Fall), 2010 IEEE 72nd},
+  pp.~1--5, IEEE, 2010.
+
+\bibitem{kff1101}
+H.~Klessig, A.~Fehske, and G.~Fettweis, ``{Energy Efficiency Gains in
+  Interference-limited Heterogeneous Cellular Mobile Radio Networks with Random
+  Micro Site Deployment},'' in {\em Sarnoff Symposium, 2011 34th IEEE},
+  pp.~1--6, 2011.
+
+\bibitem{rff0901}
+F.~Richter, A.~Fehske, and G.~Fettweis, ``{Energy Efficiency Aspects of Base
+  Station Deployment Strategies for Cellular Networks},'' in {\em Vehicular
+  Technology Conference Fall (VTC 2009-Fall), 2009 IEEE 70th}, pp.~1--5, 2009.
+
+\bibitem{bolh0901}
+B.~Badic, T.~O'Farrrell, P.~Loskot, and J.~He, ``{Energy Efficient Radio Access
+  Architectures for Green Radio: Large versus Small Cell Size Deployment},'' in
+  {\em Proc. of the 70th Vehicular Technology Conference (VTC)}, (Anchorage,
+  USA), pp.~1--5, Sept. 2009.
+
+\bibitem{kt1201}
+C.~Khirallah and J.~S. Thompson, ``{Energy Efficiency of Heterogeneous Networks
+  in LTE-Advanced},'' {\em Journal of Signal Processing Systems}, vol.~69,
+  no.~1, pp.~105--113, 2012.
+
+\bibitem{hkd1101}
+J.~Hoydis, M.~Kobayashi, and M.~Debbah, ``{Green Small-Cell Networks},'' {\em
+  Vehicular Technology Magazine, IEEE}, vol.~6, no.~1, pp.~37--43, 2011.
+
+\bibitem{ok1001}
+E.~Oh and B.~Krishnamachari, ``{Energy Savings through Dynamic Base Station
+  Switching in Cellular Wireless Access Networks},'' in {\em Global
+  Telecommunications Conference (GLOBECOM 2010), 2010 IEEE}, pp.~1--5, IEEE,
+  2010.
+
+\bibitem{abh1101}
+I.~Ashraf, F.~Boccardi, and L.~Ho, ``{Sleep Mode Techniques for Small Cell
+  Deployments},'' {\em Communications Magazine, IEEE}, vol.~49, pp.~72 --79,
+  Aug. 2011.
+
+\bibitem{fmmjg1101}
+P.~Frenger, P.~Moberg, J.~Malmodin, Y.~Jading, and I.~G\'odor, ``{Reducing
+  Energy Consumption in LTE with Cell DTX},'' in {\em Proceedings of the IEEE
+  VTC 2011-Spring}, 2011.
+
+\bibitem{sec1001}
+L.~Saker, S.-E. Elayoubi, and T.~Chahed, ``{Minimizing Energy Consumption via
+  Sleep Mode in Green Base Station},'' in {\em Wireless Communications and
+  Networking Conference (WCNC), 2010 IEEE}, pp.~1--6, 2010.
+
+\bibitem{acc1201}
+K.~Abdallah, I.~Cerutti, and P.~Castoldi, ``{Energy-Efficient Coordinated Sleep
+  of LTE Cells},'' in {\em Communications (ICC), 2012 IEEE International
+  Conference on}, pp.~5238 --5242, June 2012.
+
+\bibitem{ha1201}
+T.~Han and N.~Ansari, ``{ICE: Intelligent Cell BrEathing to Optimize the
+  Utilization of Green Energy},'' {\em Communications Letters, IEEE}, vol.~16,
+  no.~6, pp.~866--869, 2012.
+
+\bibitem{asb1002}
+C.~Abgrall, E.~C. Strinati, and J.-C. Belfiore, ``{Distributed Power Allocation
+  for Interference Limited Networks},'' in {\em Proc. of the 21st IEEE
+  International Symposium on Personal, Indoor and Mobile Radio Communications
+  (PIMRC)}, (Istanbul, Turkey), pp.~1118--1122, Sept. 26--29 2010.
+
+\bibitem{nwgy1001}
+Z.~Niu, Y.~Wu, J.~Gong, and Z.~Yang, ``{Cell Zooming for Cost-efficient Green
+  Cellular Networks},'' {\em Communications Magazine, IEEE}, vol.~48, no.~11,
+  pp.~74--79, 2010.
+
+\bibitem{hafm1201}
+M.~Hedayati, M.~Amirijoo, P.~Frenger, and J.~Moe, ``{Reducing Energy
+  Consumption Through Adaptation of Number of Active Radio Units},'' in {\em
+  Proceedings of the IEEE VTC 2012-Spring}, 2012.
+
+\bibitem{sf1201}
+P.~Skillermark and P.~Frenger, ``{Enhancing Energy Efficiency in LTE with
+  Antenna Muting},'' in {\em Vehicular Technology Conference (VTC Spring), 2012
+  IEEE 75th}, pp.~1--5, 2012.
+
+\bibitem{kcvh0901}
+H.~Kim, C.-B. Chae, G.~de~Veciana, and R.~W. Heath, ``{A Cross-layer Approach
+  to Energy Efficiency for Adaptive MIMO Systems Exploiting Spare Capacity},''
+  {\em {IEEE Transactions on Wireless Communications}}, vol.~8, pp.~4264--4275,
+  Aug. 2009.
+
+\bibitem{xylzcx1101}
+Z.~Xu, C.~Yang, G.~Y. Li, S.~Zhang, Y.~Chen, and S.~Xu, ``{Energy-Efficient
+  MIMO-OFDMA Systems based on Switching Off RF Chains},'' in {\em Proceedings
+  of the VTC Fall 2011}, 2011.
+
+\bibitem{wsdh1201}
+X.~Wu, S.~Sinanovic, M.~Di~Renzo, and H.~Haas, ``{Base Station Energy
+  Consumption for Transmission Optimised Spatial Modulation (TOSM) in
+  Correlated Channels},'' in {\em Computer Aided Modeling and Design of
+  Communication Links and Networks (CAMAD), 2012 IEEE 17th International
+  Workshop on}, pp.~261--265, 2012.
+
+\bibitem{ssdhg1201}
+A.~Stavridis, S.~Sinanovic, M.~Di~Renzo, H.~Haas, and P.~Grant, ``{An Energy
+  Saving Base Station Employing Spatial Modulation},'' in {\em Computer Aided
+  Modeling and Design of Communication Links and Networks (CAMAD), 2012 IEEE
+  17th International Workshop on}, pp.~231--235, IEEE, 2012.
+
+\bibitem{gs1101}
+R.~Gupta and E.~Strinati, ``{Green Scheduling to Minimize Base Station Transmit
+  Power and UE Circuit Power Consumption},'' in {\em Personal Indoor and Mobile
+  Radio Communications (PIMRC), 2011 IEEE 22nd International Symposium on},
+  pp.~2424--2429, 2011.
+
+\bibitem{cj1201}
+Z.~Chong and E.~Jorswieck, ``{Analytical Foundation for Energy Efficiency
+  Optimisation in Cellular Networks with Elastic Traffic},'' in {\em Mobile
+  Lightweight Wireless Systems}, pp.~18--29, Springer, 2012.
+
+\bibitem{a1201}
+A.~Ambrosy, M.~Wilhelm, O.~Blume, and W.~Wajda, ``{Dynamic Bandwidth Management
+  for Energy Savings in Wireless Base Stations},'' in {\em Proceedings of
+  Globecom 2012}, 2012.
+
+\bibitem{vh1101}
+S.~Videv and H.~Haas, ``{Energy-Efficient Scheduling and Bandwidth-Energy
+  Efficiency Trade-Off with Low Load},'' in {\em ICC}, pp.~1--5, 2011.
+
+\bibitem{mps0701}
+F.~Meshkati, V.~Poor, and S.~Schwartz, ``{Energy-Efficient Resource Allocation
+  in Wireless Networks: An Overview of Game Theoretic Approaches},'' {\em IEEE
+  Signal Processing Magazine: Special Issue on Resource-Constrained Signal
+  Processing, Communications and Networking}, May 2007.
+
+\bibitem{std:earthd33}
+{EARTH Project Work Package 3}, ``{Deliverable D3.3: Green Network
+  Technologies}.''
+  \url{https://www.ict-earth.eu/publications/deliverables/deliverables.html},
+  June 2012.
+\newblock Retrieved 18 Apr. 2013.
+
+\bibitem{sbckk1101}
+L.~Scalia, T.~Biermann, C.~Choi, K.~Kozu, and W.~Kellerer, ``{Power-efficient
+  Mobile Backhaul Design for CoMP Support in Future Wireless Access Systems},''
+  in {\em Computer Communications Workshops (INFOCOM WKSHPS), 2011 IEEE
+  Conference on}, pp.~253--258, 2011.
+
+\bibitem{hywl1101}
+S.~Han, C.~Yang, G.~Wang, and M.~Lei, ``{On the Energy Efficiency of Base
+  Station Sleeping with Multicell Cooperative Yransmission},'' in {\em Personal
+  Indoor and Mobile Radio Communications (PIMRC), 2011 IEEE 22nd International
+  Symposium on}, pp.~1536--1540, IEEE, 2011.
+
+\bibitem{hg1101}
+L.~G. Hevizi and I.~G{\'o}dor, ``{Power Savings in Mobile Networks by Dynamic
+  Base Station Sectorization},'' in {\em Personal Indoor and Mobile Radio
+  Communications (PIMRC), 2011 IEEE 22nd International Symposium on},
+  pp.~2415--2417, IEEE, 2011.
+
+\bibitem{sdd1101}
+E.~Strinati, A.~De~Domenico, and A.~Duda, ``{Ghost Femtocells: A Novel Radio
+  Resource Management Scheme for OFDMA Based Networks},'' in {\em Wireless
+  Communications and Networking Conference (WCNC), 2011 IEEE}, pp.~108--113,
+  2011.
+
+\bibitem{tbt1301}
+E.~Ternon, Z.~Bharucha, and H.~Taoka, ``{A Feasibility Study for the Detached
+  Cell Concept},'' in {\em SCC 2013}, Jan. 2013.
+
+\bibitem{wvclk1201}
+X.~Wang, A.~V. Vasilakos, M.~Chen, Y.~Liu, and T.~T. Kwon, ``{A Survey of Green
+  Mobile Networks: Opportunities and Challenges},'' {\em Mobile Networks and
+  Applications}, vol.~17, no.~1, pp.~4--20, 2012.
+
+\bibitem{e0201a}
+A.~Ephremides, ``{Energy Concerns in Wireless Networks},'' {\em Wireless
+  Communications, IEEE}, vol.~9, no.~4, pp.~48--59, 2002.
+
+\bibitem{cpgbc1201}
+F.~Capozzi, G.~Piro, L.~Grieco, G.~Boggia, and P.~Camarda, ``{Downlink Packet
+  Scheduling in LTE Cellular Networks: Key Design Issues and a Survey},'' {\em
+  {Communications Surveys Tutorials, IEEE}}, vol.~PP, no.~99, pp.~1 --23, 2012.
+
+\bibitem{book:dps1101}
+E.~Dahlman, S.~Parkvall, and J.~Sk\"{o}ld, {\em {4G LTE/LTE-Advanced for Mobile
+  Broadband}}.
+\newblock Academic Press, 1~ed., 2011.
+
+\bibitem{tech:b}
+{GSA Secretariat}, ``{GSA Evolution to LTE report},'' tech. rep., Global mobile
+  Suppliers Association, Mar. 2013.
+
+\bibitem{book:stb0901}
+S.~Sesia, I.~Toufik, and M.~Baker, {\em {LTE - The UMTS Long Term Evolution:
+  From Theory to Practice}}.
+\newblock Wiley, 1~ed., 2009.
+
+\bibitem{tech:c}
+{Ericsson AB}, ``{Ericsson Mobility Report},'' tech. rep., Ericsson AB, Nov.
+  2012.
+
+\bibitem{book:gg9801}
+I.~A. Glover and P.~M. Grant, {\em {D}igital {C}ommunications}.
+\newblock {Prentice Hall}, 1998.
+
+\bibitem{book:g1001}
+V.~Garg, {\em {Wireless Communications \& Networking}}.
+\newblock The Morgan Kaufmann Series in Networking, Elsevier Science, 2010.
+
+\bibitem{p9801}
+S.~Pike, ``{The Radio Interface for UMTS},'' in {\em Personal {C}ommunications
+  in the 21st {C}entury (I) (Ref. {N}o. 1998/214), {IEE} {C}olloquium on},
+  (London), pp.~1--725, Feb. 5, 1998.
+
+\bibitem{std:3gppts36321}
+3GPP, ``{Evolved Universal Terrestrial Radio Access (E-UTRA); Medium Access
+  Control (MAC) Protocol Specification (Release 9)}.'' {3GPP TS 36.321 V 9.2.0
+  (2010-03)}, Mar. 2010.
+
+\bibitem{book:k0601}
+V.~K{\"{u}}hn, {\em {Wireless Communications over MIMO Channels}}.
+\newblock {J}ohn {W}iley \& {S}ons {L}td., 2006.
+
+\bibitem{book:b0701}
+E.~Biglieri, A.~R. Calderbank, A.~G. Constantinides, A.~Goldsmith, and
+  A.~Paulraj, {\em {MIMO Wireless Communications}}.
+\newblock Cambridge University Press, 2007.
+
+\bibitem{gjjv0301}
+A.~Goldsmith, S.~Jafar, N.~Jindal, and S.~Vishwanath, ``{Capacity Limits of
+  MIMO Channels},'' {\em {IEEE Journal on Selected Areas in Communication}},
+  vol.~21, pp.~684--702, June 2003.
+
+\bibitem{book:bv0401}
+S.~Boyd and L.~Vandenberghe, {\em {Convex Optimization}}.
+\newblock Cambridge University Press, Mar. 2004.
+
+\bibitem{book:pe1001}
+D.~P. Palomar and Y.~C. Eldar, {\em {Convex Optimization in Signal Processing
+  and Communications}}.
+\newblock Cambridge university press New York, 2010.
+
+\bibitem{std:3gpp-faeutrapla}
+3GPP, ``{Further Advancements for E-UTRA Physical Layer Aspects (Release 9), TR
+  36.814 V9.0.0}.'' \url{www.3gpp.org/ftp/Specs/}, Mar. 2010.
+\newblock Retrieved 15 Jan. 2013.
+
+\bibitem{std:ist-chanmod2}
+{IST-4-027756 WINNER II}, ``{D}1.1.2 v1.2 {WINNER II Channel Models}.''
+  \url{https://www.ist-winner.org/WINNER2-Deliverables/}, 2006.
+\newblock Retrieved 5 Feb. 2008.
+
+\bibitem{wl01}
+A.~W\"{a}chter and K.~Laird, ``{IPOPT - Interior Point OPTimizer}.''
+\newblock {retrieved May 2, 2013}.
+
+\bibitem{t1301}
+{Condor Team}, ``{Condor Manual}.''
+  \url{http://research.cs.wisc.edu/htcondor/}, May 2013.
+\newblock Retrieved 17 June 2013.
+
+\bibitem{01a}
+``{MATLAB - The Language of Technical Computing}.''
+  \url{http://www.mathworks.com/products/matlab}.
+\newblock Retrieved 17 June 2013.
+
+\bibitem{01}
+``{Python Programming Language – Official Website}.''
+  \url{http://www.python.org}.
+\newblock Retrieved 17 June 2013.
+
+\bibitem{djm1201}
+M.~Deruyck, W.~Joseph, and L.~Martens, ``{Power Consumption Model for Macrocell
+  and Microcell Base Stations},'' {\em {Transactions on Emerging
+  Telecommunications Technologies}}, 2012.
+
+\bibitem{lcvc1101}
+D.~L\'{o}pez-P{\'e}rez, X.~Chu, A.~V. Vasilakos, and H.~Claussen, ``{Minimising
+  Cell Transmit Power: Towards Self-Organized Resource Allocation in OFDMA
+  Femtocells},'' in {\em Proceedings of the ACM SIGCOMM 2011 Conference},
+  SIGCOMM '11, (New York, NY, USA), pp.~410--411, ACM, 2011.
+
+\bibitem{mhl0801}
+G.~Miao, N.~Himayat, and G.~Li, ``{Energy-Efficient Transmission in
+  Frequency-Selective Channels},'' {\em Global Telecommunications Conference,
+  2008. IEEE GLOBECOM 2008}, 2008.
+
+\bibitem{d1201}
+A.~de~Domenico, {\em {Energy Efficient Mechanisms for Heterogeneous Cellular
+  Networks}}.
+\newblock PhD thesis, Universit\'{e} de Grenoble, 2012.
+
+\bibitem{s1001}
+Sandvine, ``{Mobile Internet Phenomena Report}.''
+  \url{http://www.sandvine.com/downloads/documents/2010%20Global%20Internet%20%
+Phenomena%20Report.pdf}, 2010.
+\newblock Retrieved 17 June 2013.
+
+\bibitem{ssha0701}
+S.~Sinanovi\'c, N.~Serafimovski, H.~Haas, and G.~Auer, ``{System Spectral
+  Efficiency Analysis of a 2-Link Ad Hoc Network},'' in {\em {Proc. of the 50th
+  IEEE Global Telecommunications Conference (GLOBECOM)}}, (Washington, USA),
+  pp.~3684--3688, IEEE, Nov. 26--30 2007.
+
+\bibitem{wclm9901}
+C.~Y. Wong, R.~S. Cheng, K.~B. Lataief, and R.~D. Murch, ``{Multiuser OFDM with
+  Adaptive Subcarrier, Bit, and Power Allocation},'' {\em {IEEE} {J}ournal on
+  {S}elected {A}reas in {C}ommunications}, vol.~17, pp.~1747--1758, Oct. 1999.
+
+\bibitem{mhlb0801}
+G.~Miao, N.~Himayat, Y.~Li, and D.~Bormann, ``{Energy Efficient Design in
+  Wireless OFDMA},'' in {\em IEEE International Conference on Communications},
+  pp.~3307 --3312, 19-23 2008.
+
+\bibitem{kll0301}
+D.~Kivanc, G.~Li, and H.~Liu, ``{Computationally Efficient Bandwidth Allocation
+  and Power Control for OFDMA},'' {\em IEEE Transactions on Wireless
+  Communications}, vol.~2, pp.~1150--1158, Nov. 2003.
+
+\bibitem{aw1001}
+H.~Al-Shatri and T.~Weber, ``{Fair Power Allocation for Sum-Rate Maximization
+  in Multiuser OFDMA},'' in {\em {Proceedings of the International ITG Workshop
+  on Smart Antennas 2010}}, 2010.
+
+\bibitem{vdcjpmd1201}
+W.~Vereecken, M.~Deruyck, D.~Colle, W.~Joseph, M.~Pickavet, L.~Martens, and
+  P.~Demeester, ``{Evaluation of the Potential for Energy Saving in Macrocell
+  and Femtocell Networks using a Heuristic Introducing Sleep modes in Base
+  Stations},'' {\em EURASIP Journal on Wireless Communications and Networking},
+  vol.~2012, no.~1, pp.~1--14, 2012.
+
+\bibitem{xpvgc1101}
+L.~Xiang, F.~Pantisano, R.~Verdone, X.~Ge, and M.~Chen, ``{Adaptive Traffic
+  Load-balancing for Green Cellular Networks},'' in {\em Personal Indoor and
+  Mobile Radio Communications (PIMRC), 2011 IEEE 22nd International Symposium
+  on}, pp.~41--45, IEEE, 2011.
+
+\bibitem{s4801}
+C.~Shannon, ``{A Mathematical Theory of Communication},'' {\em {Bell System
+  Technical Journal}}, vol.~27, pp.~379--423 \& 623--656, July \& Oct. 1948.
+
+\bibitem{jl0301}
+J.~Jang and K.~B. Lee, ``{Transmit Power Adaptation for Multiuser OFDM
+  Systems},'' {\em {IEEE} {J}ournal on {S}elected {A}reas in {C}ommunications},
+  vol.~21, pp.~171--178, Feb. 2003.
+
+\bibitem{r9501a}
+M.~Rosen, ``{Niels Hendrik Abel and Equations of the Fifth Degree},'' {\em The
+  American Mathematical Monthly}, vol.~102, no.~6, pp.~495--505, 1995.
+
+\bibitem{ygc0201}
+W.~Yu, G.~Ginis, and J.~M. Cioffi, ``{Distributed Multiuser Power Control for
+  Digital Subscriber Lines},'' {\em Selected Areas in Communications, IEEE
+  Journal on}, vol.~20, no.~5, pp.~1105--1115, 2002.
+
+\bibitem{std:ist-chanmod}
+{IST-2003-507581~WINNER}, ``{D}5.4 v1.0 {F}inal {R}eport on {L}ink {L}evel and
+  {S}ystem {L}evel {C}hannel {M}odels.''
+  \url{https://www.ist-winner.org/DeliverableDocuments/}, Nov. 2005.
+\newblock Retrieved 15 Apr. 2007.
+
+\bibitem{ll0601}
+G.~Li and H.~Liu, ``{D}ownlink {R}adio {R}esource {A}llocation for
+  {M}ulti-{C}ell {OFDMA} {S}ystem,'' {\em {IEEE} {T}ransactions on {W}ireless
+  {C}ommunications}, vol.~5, pp.~3451--3459, Dec. 2006.
+
+\bibitem{uab1101}
+S.~Uygungelen, G.~Auer, and Z.~Bharucha, ``{Graph-Based Dynamic Frequency Reuse
+  in Femtocell Networks},'' in {\em {Proc. of the 73rd IEEE Vehicular
+  Technology Conference (VTC)}}, (Budapest, Hungary), May 15--18 2011.
+
+\bibitem{ry1001}
+M.~Rahman and H.~Yanikomeroglu, ``{Enhancing Cell-edge Performance: a Downlink
+  Dynamic Interference Avoidance Scheme with Inter-cell Coordination},'' {\em
+  Wireless Communications, IEEE Transactions on}, vol.~9, no.~4,
+  pp.~1414--1425, 2010.
+
+\bibitem{lcyzchk1201}
+Y.-S. Liang, W.-H. Chung, C.-M. Yu, H.~Zhang, C.-H. Chung, C.-H. Ho, and S.-Y.
+  Kuo, ``{Resource Block Assignment for Interference Avoidance in Femtocell
+  Networks},'' in {\em Vehicular Technology Conference (VTC Fall), 2012 IEEE},
+  pp.~1--5, 2012.
+
+\bibitem{knun01}
+I.~Katzela and M.~Naghshineh, ``{Channel Assignment Schemes for Cellular Mobile
+  Telecommunication Systems: A Comprehensive Survey},'' {\em Personal
+  Communications, IEEE}, vol.~3, no.~3, pp.~10--31, Jun 1996.
+
+\bibitem{book:p0001}
+J.~G. Proakis, {\em Digital Communications}.
+\newblock McGraw-Hill Series in Electrical and Computer Engineering,
+  McGraw-Hill Higher Education, 4~ed., Dec. 2000.
+
+\bibitem{sg9301}
+M.~Serizawa and D.~Goodman, ``{Instability and Deadlock of Distributed Dynamic
+  Channel Allocation},'' in {\em Vehicular Technology Conference, 1993., 43rd
+  IEEE}, pp.~528 --531, May 1993.
+
+\bibitem{ehb0801}
+J.~Ellenbeck, C.~Hartmann, and L.~Berlemann, ``{Decentralized Inter-Cell
+  Interference Coordination by Autonomous Spectral Reuse Decisions},'' in {\em
+  Proc. of the 14th European Wireless Conference (EW)}, (Prague, Czech
+  Republic), pp.~1--7, June 22--25 2008.
+
+\bibitem{aa9301}
+Y.~Akaiwa and H.~Andoh, ``{Channel Segregation -- A Self-organized Dynamic
+  Channel Allocation Method: Application to TDMA/FDMA Microcellular System},''
+  {\em Selected Areas in Communications, IEEE Journal on}, vol.~11, pp.~949
+  --954, Aug. 1993.
+
+\bibitem{ltem1301}
+E.~G. Larsson, F.~Tufvesson, O.~Edfors, and T.~L. Marzetta, ``{Massive MIMO for
+  Next Generation Wireless Systems},'' {\em arXiv preprint arXiv:1304.6690},
+  2013.
+
+\bibitem{hqkg1101}
+R.~Q. Hu, Y.~Qian, S.~Kota, and G.~Giambene, ``{HetNets -- a new Paradigm for
+  Increasing Cellular Capacity and Coverage},'' {\em Wireless Communications,
+  IEEE}, vol.~18, no.~3, pp.~8--9, 2011.
+
+\bibitem{habdf0901}
+M.~Haenggi, J.~G. Andrews, F.~Baccelli, O.~Dousse, and M.~Franceschetti,
+  ``{Stochastic Geometry and Random Graphs for the Analysis and Design of
+  Wireless Networks},'' {\em Selected Areas in Communications, IEEE Journal
+  on}, vol.~27, no.~7, pp.~1029--1046, 2009.
+
+\end{thebibliography}

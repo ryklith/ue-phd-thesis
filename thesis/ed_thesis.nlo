@@ -1,0 +1,6 @@
+\nomenclatureentry{$\psi$@[{$\psi$}]\begingroup Scoring map, assigning scores to users\nomeqref {5.0}|nompageref}{18}
+\nomenclatureentry{$\Upsilon_{\mathrm{u}}, \Upsilon_{\mathrm{uu}}$@[{$\Upsilon_{\mathrm{u}}, \Upsilon_{\mathrm{uu}}$}]\begingroup Set of used/unused time slots, respectively\nomeqref {5.0}|nompageref}{18}
+\nomenclatureentry{$Q$@[{$Q$}]\begingroup Ranking tuple, time slots in order of capacity\nomeqref {5.0}|nompageref}{18}
+\nomenclatureentry{$\psi_{\mathrm{ul}}, \psi_{\mathrm{ll}}$@[{$\psi_{\mathrm{ul}}, \psi_{\mathrm{ll}}$}]\begingroup Upper/lower limit of score, respectively\nomeqref {5.0}|nompageref}{18}
+\nomenclatureentry{$Q_0$@[{$Q_0$}]\begingroup Time slot with highest virtual capacity\nomeqref {5.0}|nompageref}{18}
+\nomenclatureentry{$V$@[{$V$}]\begingroup Priority tuple, time slots in order of score\nomeqref {5.0}|nompageref}{18}

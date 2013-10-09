@@ -1,0 +1,545 @@
+\def\fileversion{v0.11}
+\def\filedate{20 March 91}
+\typeout{Style option `edthesis' \fileversion\space<\filedate>.}
+%
+% edthesis.sty
+%  
+% style option for theses at Edinburgh University
+%
+% changes paper size (A4), margins, linespacing, headings, and captions.
+% titlepage and abstract formats altered.
+% adds command to generate declaration.
+%
+% P.J. Aphalo, 
+% JANET: P.Aphalo@uk.ac.edinburgh
+%
+% 17 May 90, 12 June 90, 13 July 90, 17-20 July 90, 18 September 90
+% 12 October 90, 20 February 91, 5 March 91, 20 March 91
+%
+% USAGE:
+%
+% \documentstyle[edthesis]{report}
+%
+% or for 11pt (or 12pt):
+%
+% \documentstyle[11pt,edthesis]{report]
+%
+% or
+%
+% \documentstyle[twocolumn,edthesis]{report}
+%
+% ------------------
+% Notes
+% ~~~~~
+% Sizes of margins in the 'Regulatory Standards' were taken as minimum widths,
+% wider margins are used with typefaces smaller than 11pt when not using 
+% twocolumns. This was done to keep the number of words per line below
+% approx. 12 so as to improve readability. I do NOT know whether wide margins
+% are acceptable! Check before using a 10 pt typeface.
+% By default spacing is set to 1.5, not double! It looks better... but check.
+% 
+% ------------------
+%
+% LONG EXAMPLE: (adapted from suthesis.sty)
+% ~~~~~~~~~~~~~
+\iffalse % begin metacomment
+
+    \documentstyle[12pt,edthesis]{report}
+%    \doublespacing % optional
+    \begin{document}
+    \title{How to Write Theses\\
+ 	    With Two Line Titles}
+    \author{John Henry Candidate}
+    \degree{Doctor of Philosophy}
+
+    \begin{prefacepart}
+    \pagenumbering{roman} % optional
+    \maketitle
+    \chapter{Abstract}
+        This thesis tells you all you need to know about...
+    \makedeclaration
+    \chapter{Acknowledgements}
+        I would like to thank...
+    \tableofcontents
+    \listoftables
+    \listoffigures
+    \end{prefacepart}
+    \pagenumbering{arabic} % optional, also resets the page counter to 1
+    \chapter{Introduction}
+         ...
+    \chapter{Conclusions}
+         ...
+    \appendix
+    \chapter{A Long Proof}
+         ...
+%    \bibliographystyle{cacm}
+    \bibliographystyle{IEEEtran}
+    \bibliography{mybib}
+    \addcontentsline{toc}{chapter}{References}
+
+% end example
+
+Documentation:
+    The 'prefacepart' environment.
+    Sections are formated differently within this environment but they
+    should be written using the normal LaTeX sectioning commands.
+
+    The following commands can control what goes in the front matter:
+    
+	\title{thesis title}    (not changed from LaTeX)
+	\author{author's name}  (not changed from LaTeX)
+	\degree{name of degree} (new command)
+	\maketitle              (modified from LaTeX)
+	\makedeclaration        (new command)
+                  
+ note: The use of the 'prefacepart' environment is optional, you can do things 
+       manually if you prefer (and you can still use \degree, \maketitle, and
+       \makedeclaration	).
+       
+This style uses interline spacing that is 1.3 times normal, except
+in the figure and table environments, and in footnotes where normal
+spacing is used.
+That can be changed by doing:
+    \setstretch{1.6}
+(or whatever you want instead of 1.6).
+
+The example above shows the 12pt substyle being used.  This seems to give
+acceptable looking results, but it may be omitted to get smaller print.
+
+It is advisable to use the \include and \includeonly mechanism and to keep
+the chapters in separate files (see the LaTeX Manual).
+
+The use of roman page numbers in the preface part is not mandatory,
+only continuous pagination is required by the Regulatory Standards.
+
+\fi % end metacomment
+
+% page layout
+% ~~~~~~~~~~~
+% borrowed from a4.sty (J.L. Braams and N.A.F.M. Poppelier, version 1.2),
+% but modified to give wider margins and to deal with twocolumn style option.
+%
+% check for @twoside removed because according to latex.tex (output routine)
+% \oddsidemargin is used for both even and odd pages when @twoside is FALSE,
+% which implies that here we don't need to bother about it! (Unless we want
+% one sided pages to have different margins than right pages in two sided
+% output.)
+%
+% set top and bottom  margins
+%
+\topmargin 0pt
+\ifcase \@ptsize
+ \textheight 51\baselineskip
+\or
+ \textheight 44\baselineskip
+\or
+ \textheight 40\baselineskip
+\fi
+\advance\textheight by \topskip
+%
+% set right and left  margins
+%
+\if@twocolumn
+ \textwidth      5.70in
+ \marginparwidth 0.80in
+ \oddsidemargin  0.50in
+ \evensidemargin 0.05in
+\else
+ \ifcase \@ptsize
+   \textwidth      5.20in
+   \marginparwidth 1.00in
+   \oddsidemargin  0.50in
+   \evensidemargin 0.55in
+ \or
+   \textwidth      5.70in
+   \marginparwidth 0.80in
+   \oddsidemargin  0.50in
+   \evensidemargin 0.05in
+ \or
+   \textwidth      5.70in
+   \marginparwidth 0.80in
+   \oddsidemargin  0.50in
+   \evensidemargin 0.05in
+   \fi
+ \fi
+ 
+%%%%%%%%%%%%%%%%
+% LOCAL to ps2 %
+%%%%%%%%%%%%%%%%
+% shift text 0.25in to the right (needed with 'ps2' printer because origin is
+% not at top left corner of sheet of A4 paper!)
+% uncomment the next two lines to activate
+% \addtolength{\oddsidemargin}{0.25in}
+% \addtolength{\evensidemargin}{0.25in}
+%%%%%%%%%%%%%%%%
+
+% use \WideMargins if you make heavy use of marginal notes
+% don't use with two column text
+\def\WideMargins{
+ \newdimen\ExtraWidth
+ \ifcase \@ptsize
+ \ExtraWidth = 0.5in
+ \@widemargins
+ \or
+ \ExtraWidth = 0.7in
+ \@widemargins
+ \or
+ \ExtraWidth = 0.7in
+ \@widemargins
+ \fi\let\WideMargins\relax\let\@widemargins\relax}
+{\def\do{\noexpand\do\noexpand}
+ \xdef\@preamblecmds{\@preamblecmds \do\WideMargins}
+}
+\def\@widemargins{
+ \global\advance\textwidth by -\ExtraWidth
+ \global\advance\marginparwidth by \ExtraWidth
+ \if@reversemargin
+ \@tempdima=\evensidemargin
+ \advance\@tempdima by -\oddsidemargin
+ \advance\oddsidemargin by \ExtraWidth
+ \advance\oddsidemargin by \@tempdima
+ \advance\evensidemargin by -\@tempdima
+ \else
+ \advance\evensidemargin by \ExtraWidth
+ \fi}
+
+
+% spacing
+% ~~~~~~~
+%==== doublespace.sty/setspace.sty starts here ====
+% What follows is a hybrid between doublespace.sty and setspace.sty
+%
+% Save file as: DOUBLESPACE.STY        Source: FILESERV@SHSU.BITNET
+%-------------------------------------------------------------------------------
+% Save file as: SETSPACE.STY           Source: FILESERV@SHSU.BITNET
+%% FILE:   setspace.sty in SYS2.TEX.PUB.ISULATEX.STYLES
+%% AUTHOR: Erica M. S. Harris
+%% DATE:   April 1990
+%% MOD:    March 1991
+%% DESCR:  LaTeX Document style option "setspace"
+%%         Usage:  \documentstyle[...,setspace,...]{...}
+%%         Based on the doublespace option created by Stephen Page.
+%%
+%%         This style option provides commands and environments for doing
+%%         double and  one-and-a-half spacing based on pt size.
+%%
+%%         Single spacing is the default.
+%%
+%%         Three commands, \doublespacing, \onehalfspacing, and
+%%         \singlespacing, are for use in the preamble to set the overall
+%%         spacing for the document.  If a different spacing is required then
+%%         the \setstretch{baselinestretch} command can be used in the
+%%         preamble to set the baselinestretch appropriately.  The default
+%%         spacing with this style option is single spacing.
+%%
+%%         Three environments, singlespace, onehalfspace, and doublespace,
+%%         allow the spacing to be changed within the document.  Both the
+%%         onehalfspace and doublespace environments are intended to increase
+%%         the spacing, so the onehalfspace environment should not be used in
+%%         a double spaced document.  If an increased spacing different from
+%%         one-and-a-half or double spacing is required then the spacing
+%%         environment can be used.  The spacing environment takes one
+%%         argument which is the larger baselinestretch to use,
+%%         e.g., \begin{spacing}{2.5}.
+%%
+%
+% PLEASE REPORT ANY BUGS
+%
+% Modified by: Jean-Francois Lamy
+%                          lamy@ai.toronto.edu
+%                          lamy@utai.uucp
+%
+% Author: Stephen Page  -- sdpage@prg.oxford.ac.uk
+%                          sdpage%prg.oxford.ac.uk@cs.ucl.ac.uk
+%
+% Release date: 6 July 1986 - September 3, 1986
+%
+% Known bugs:
+%    . It might be nice if spacing before the footnote rule (\footins)
+%      were provided in a tidier way.
+%    . Increasing struts may possibly cause some other obscure part of
+%      formatting to fall over.
+%    . \begin{singlespace}\begin{quote} produces the wrong spacing before
+%      the quote (extra glue is inserted).
+%    . shouldn't @setsize stretch parskip as well?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MODS (March 1991):
+%%         Redefinition of \spacing and \endspacing for consistency with
+%%         TeX 3.x inserted by George Greenwade.  Modification provided by
+%%         Philip Ross (ROSS@UK.AC.ABDN.BIOMED) and John Byrne via INFO-TeX.
+%%
+%%         Redefinition of \enddoublespace as suggested by Kim A. Tan
+%%         <KATAN@CGRVAX.UWaterloo.CA> (also via INFO-TeX) (prevously, the
+%%         "end" was missing, causing some problems in spacing changes).
+%%
+ 
+\def\doublespacing{\ifcase \@ptsize \relax % 10pt
+    \def\baselinestretch{1.667}
+  \or % 11pt
+    \def\baselinestretch{1.618}
+  \or % 12pt
+    \def\baselinestretch{1.655}
+  \fi}
+ 
+\def\onehalfspacing{\ifcase \@ptsize \relax % 10pt
+    \def\baselinestretch{1.25}
+  \or % 11pt
+    \def\baselinestretch{1.213}
+  \or % 12pt
+    \def\baselinestretch{1.241}
+  \fi}
+ 
+\def\singlespacing{\def\baselinestretch{1}}
+ 
+\def\setstretch#1{\renewcommand{\baselinestretch}{#1}}
+ 
+ 
+%---Stretch the baseline BEFORE calculating the strut size. This improves
+%   spacing below tabular environments etc., probably...
+%   Comments are welcomed.
+ 
+\def\@setsize#1#2#3#4{\@nomath#1%
+   \let\@currsize#1\baselineskip
+   #2\baselineskip\baselinestretch\baselineskip
+   \parskip\baselinestretch\parskip
+   \setbox\strutbox\hbox{\vrule height.7\baselineskip
+      depth.3\baselineskip width\z@}%
+   \normalbaselineskip\baselineskip#3#4}
+ 
+ 
+%---Increase the space between last line of text and footnote rule.
+%   This is a very untidy way to do it!
+ 
+\skip\footins 20pt plus4pt minus4pt
+ 
+ 
+%---Reset baselinestretch within footnotes and floats. Originally stolen
+%   from Stanford thesis style.
+ 
+% \def\@xfloat#1[#2]{\ifhmode \@bsphack\@floatpenalty -\@Mii\else
+%    \@floatpenalty-\@Miii\fi\def\@captype{#1}\ifinner
+%       \@parmoderr\@floatpenalty\z@
+%     \else\@next\@currbox\@freelist{\@tempcnta\csname ftype@#1\endcsname
+%        \multiply\@tempcnta\@xxxii\advance\@tempcnta\sixt@@n
+%        \@tfor \@tempa :=#2\do
+%                         {\if\@tempa h\advance\@tempcnta \@ne\fi
+%                          \if\@tempa t\advance\@tempcnta \tw@\fi
+%                          \if\@tempa b\advance\@tempcnta 4\relax\fi
+%                          \if\@tempa p\advance\@tempcnta 8\relax\fi
+%          }\global\count\@currbox\@tempcnta}\@fltovf\fi
+%     \global\setbox\@currbox\vbox\bgroup
+%     \def\baselinestretch{1}\small\normalsize
+%     \boxmaxdepth\z@
+%     \hsize\columnwidth \@parboxrestore}
+\long\def\@footnotetext#1{\insert\footins{\def\baselinestretch{1}\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+   \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}\@makefntext
+    {\rule{\z@}{\footnotesep}\ignorespaces
+      #1\strut}}}
+ 
+% Stolen from MIT.
+%
+% A single spaced quote (say) is done by surrounding singlespace with quote.
+%
+\def\singlespace{%
+\vskip\parskip%
+\vskip\baselineskip%
+\def\baselinestretch{1}%
+\ifx\@currsize\normalsize\@normalsize\else\@currsize\fi%
+\vskip-\parskip%
+\vskip-\baselineskip%
+}
+ 
+\def\endsinglespace{\par}
+ 
+%  spacing, doublespace and onehalfspace all are meant to INCREASE the
+%  spacing (i.e. calling onehalfspace from within doublespace will not
+%  produce a graceful transition between spacings)
+%
+% Next two definitions fixed for consistency with TeX 3.x
+\def\spacing#1{\par%
+ \begingroup             % moved from \endspacing by PGBR 29-1-91
+ \def\baselinestretch{#1}%
+ \ifx\@currsize\normalsize\@normalsize\else\@currsize\fi%
+}
+ 
+\def\endspacing{\par%
+ \vskip \parskip%
+ \vskip \baselineskip%
+ \endgroup%
+ \vskip -\parskip%
+ \vskip -\baselineskip}
+ 
+% one and a half spacing is 1.5 x pt size
+\def\onehalfspace{\ifcase \@ptsize \relax  % 10pt
+     \spacing{1.25}
+   \or % 11pt
+     \spacing{1.213}
+   \or % 12pt
+     \spacing{1.241}
+   \fi}
+\let\endonehalfspace=\endspacing
+ 
+% double spacing is 2 x pt size
+\def\doublespace{\ifcase \@ptsize \relax % 10pt
+    \spacing{1.667}
+  \or % 11pt
+    \spacing{1.618}
+  \or % 12pt
+    \spacing{1.655}
+  \fi}
+\let\enddoublespace=\endspacing
+ 
+% Fix up spacing before and after displayed math
+% (arraystretch seems to do a fine job for inside LaTeX displayed math,
+% since array and eqnarray seem to be affected as expected)
+% Changing \baselinestretch and doing a font change also works if done here,
+% but then you have to change @setsize to remove the call to @nomath)
+%
+\everydisplay{
+   \abovedisplayskip \baselinestretch\abovedisplayskip%
+   \belowdisplayskip \abovedisplayskip%
+   \abovedisplayshortskip \baselinestretch\abovedisplayshortskip%
+   \belowdisplayshortskip  \baselinestretch\belowdisplayshortskip}
+%==== end of doublespace.sty/setspace.sty
+
+\onehalfspacing % my default for the thesis, looks better than doublespacing
+
+% UK style dates (dd month yyyy)
+% ~~~~~~~~~~~~~~
+\def\today{\number\day
+  \space\ifcase\month\or January\or February\or March\or April\or May\or
+  June\or July\or August\or September\or October\or November\or December\fi
+  \space\number\year}
+\def\monthandyear{\ifcase\month\or January\or February\or March\or April\or May\or
+  June\or July\or August\or September\or October\or November\or December\fi
+  \space\number\year}
+%
+% PREFACE part
+% ~~~~~~~
+% An environment that changes formating of the chapters that appear within it.
+% Modified from suthesis.sty (Stanford Univ.)
+%
+% we change the formating but try as far as possible not to add new
+% commands. Why? So that it is possible to print the text if edthesis.sty is
+% not available simply by commenting out the 'prefacepart' environment, or 
+% defining a dummy 'prefacepart'.
+%
+% We use an 'environment' rather than two commands as in suthesis.sty
+%   for three reasons:
+% 1. It allows LaTeX to check matching of \begin and \end.
+% 2. It creates a scope that encloses the 'prefacepart', and so it is easier
+%    to keep the changes local.
+% 3. It is consistent with the philosophy of LaTeX, that the text should be 
+%    independent of the format used for printing.
+% 
+\def\prefacepart{%
+        \pagestyle{plain}        % follows normal scoping rules
+        % change the behaviour of \chapter to resemble that of \chapter*
+        % except for adding an unumbered entry to the table of contents
+        % and updating the headings through \chaptermark.
+        % (based on rep10.doc)
+        \def\@chapter[##1]##2{\typeout{\@chapapp\space##1.}
+         \addcontentsline{toc}{chapter}{##1}
+         \chaptermark{##1}
+         \if@twocolumn   
+           \@topnewpage[\@makeschapterhead{##2}]  % uses makeschapterhead instead 
+         \else \@makeschapterhead{##2}            % of makechapterhead!
+           \@afterheading                    
+         \fi} 
+        % sectioning commands should not generate numbers!
+        \c@secnumdepth=0 % local change to secnumdepth!(\setcounter is global)
+        }
+
+% set things back to normal (by ending the scope)
+%
+% \cleardoublepage is needed to make \pagenumbering take effect in the next page 
+% instead of in the current one, but it doesn't generate a blank page. 
+% ( \newpage doesn't work with \twoside or \twocolumn )
+\def\endprefacepart{\cleardoublepage 
+	}   
+
+% title
+% ~~~~~
+
+\def\degree#1{\gdef\@degree{#1}}
+
+\def\maketitle{\begin{titlepage}
+\let\footnotesize\small \let\footnoterule\relax \setcounter{page}{0}
+\null
+\vfil
+\vskip 60pt \begin{center}
+{\LARGE \bf \@title \par} \vskip 3em {\large \lineskip .75em
+\begin{tabular}[t]{c}\@author 
+\end{tabular}\par} 
+\vfil {A thesis submitted in fulfilment of the requirements\\
+for the degree of \@degree\\
+to the\\
+University of Edinburgh\\
+\number\year
+\par} \end{center} \par
+\@thanks
+\vfil
+\null
+\end{titlepage}
+\setcounter{footnote}{0} \let\thanks\relax
+\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\gdef\@degree{}\let\maketitle\relax} 
+
+% declaration
+% ~~~~~~~~~~~
+\def\makedeclaration{\thispagestyle{empty} \chapter*{Declaration}
+\thispagestyle{empty} 
+This thesis has been composed by myself and it has not been submitted in any 
+previous application for a degree. The work reported within was executed by 
+myself, unless otherwise stated.
+\vspace{5cm}
+
+\hfil\monthandyear
+
+}
+% quotations must be single spaced
+% ~~~~~~~~~~
+% use:
+%
+% \begin{quotation}\begin{singlespace}
+% ....
+% \end{singlespace}\end{quotation}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OPTIONAL (changes not required by the Regulatory Standards) %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% page breaking
+% ~~~~~~~~~~~~~
+% make penalty between list items less negative, so that the begining and end
+% of the list have relatively lower (more negative) penalties. Should make 
+% lists with short items look better by making page breaks after the first 
+% item or before the last item very unlikely. 
+%
+\divide\@itempenalty by 2
+
+% Disallow page breaks at hyphens (this will give some underfull vbox's,
+% so an alternative is to use \brokenpenalty=100 and manually search
+% for and fix such page breaks) (from suthesis.sty)
+% A high value of \brokenpenalty can cause problems with output in two or more 
+% columns, change it to 100.
+\brokenpenalty=10000
+
+% page headings
+% ~~~~~~~~~~~~~
+\pagestyle{headings}
+
+% captions use '.' after figure or table number instead of ':'
+% ~~~~~~~~
+\long\def\@makecaption#1#2{
+ \vskip 10pt 
+ \setbox\@tempboxa\hbox{{\bf #1.} #2}
+ \ifdim \wd\@tempboxa >\hsize  {\bf #1.} #2\par \else \hbox
+to\hsize{\hfil\box\@tempboxa\hfil}  
+   \fi}
+
+
+

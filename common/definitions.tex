@@ -1,0 +1,96 @@
+\setlength{\headheight}{15pt}
+
+\makeglossary
+\newcommand{\pd}{\partial}
+\renewcommand{\vec}{\boldsymbol}
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\Bei}{Bei}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Kei}{Kei}
+\DeclareMathOperator{\integer}{int}
+\DeclareMathOperator{\floor}{floor}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\const}{constant}
+\DeclareMathOperator{\maxval}{max}
+%\bibliographystyle{plainnat}
+\bibliographystyle{jmb}
+
+% change font for captions
+\renewcommand{\captionfont}{\sffamily}
+\renewcommand{\captionlabelfont}{\bf}
+
+% change font for chapter/section headings
+%\allsectionsfont{\sffamily}
+
+% funky graphics + text in lr bottom
+\begingroup% 
+\ifx\MakeISMBox\undefined%
+\gdef\MakeISMBox#1#2#3{%
+  \begin{overpic}[width=#1]{#2}%
+    %\put(0,0){\includegraphics[width=#1]{#2}}%
+    \put(98,2){\makebox(0,0)[br]{#3}}%
+  \end{overpic}}%
+\fi\endgroup%
+
+% workaround for color in ed_thesis
+\begingroup% 
+\ifx\color\undefined%
+\gdef\color[#1]#2{}%
+\fi\endgroup%
+
+% workaround for href in ed_thesis
+\begingroup% 
+\ifx\href\undefined%
+\gdef\href#1#2{#2}%
+\fi\endgroup%
+
+% defining units for nomenclature packages
+\newcommand{\nomunit}[1]{%
+%  \renewcommand{\nomentryend}{\hspace*{\fill}[#1]}%
+}
+
+% Alternative style of head and foot
+\pagestyle{fancy}% Used when using fancyhdr.sty
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\chaptermark}[1]{%
+ \markboth{\MakeUppercase{%
+ \chaptername} \ \thechapter.%
+ \ #1}{}}
+\renewcommand{\sectionmark}[1]{%
+ \markright{ \ \thesection%
+ \ #1}{}}
+
+%\rhead{\thepage}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\sl \leftmark}
+\fancyhead[RE]{\sl \rightmark}
+\fancyfoot{}
+
+%Tidy up hyphenations as best as possible
+\pretolerance = 600 % covers most paragraphs
+\tolerance = 7000 % covers the nasty cases
+
+%Tidy up hanging sentences as best as possible
+\widowpenalty=10000
+
+% To get the correct margins for the regulations for psglg1 and psglg3
+\setlength{\oddsidemargin}{1.35cm} %margins set up for psglg1
+\setlength{\evensidemargin}{-0.1cm}
+\setlength{\topmargin}{0cm}
+\setlength{\textwidth}{14.55cm}
+\setlength{\textheight}{22.3cm}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Added by Hauke Holtkamp
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\pa}{\emph{p.a.}}
+\newcommand{\ea}{\emph{et al.}}
+\newcommand{\etc}{\emph{etc.}}
+\newcommand{\coo}{$\mathrm{CO_2}$}
+\newcommand{\thickhline}{\noalign{\hrule height 0.8pt}}
+\newcommand{\B}{\boldsymbol}
+

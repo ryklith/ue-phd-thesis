@@ -1,0 +1,18 @@
+\begin{thenomenclature} 
+
+ \nomgroup{Symbols}
+
+  \item [{$Q$}]\begingroup Ranking tuple, time slots in order of capacity\nomeqref {5.0}
+		\nompageref{18}
+  \item [{$Q_0$}]\begingroup Time slot with highest virtual capacity\nomeqref {5.0}
+		\nompageref{18}
+  \item [{$V$}]\begingroup Priority tuple, time slots in order of score\nomeqref {5.0}
+		\nompageref{18}
+  \item [{$\Upsilon_{\mathrm{u}}, \Upsilon_{\mathrm{uu}}$}]\begingroup Set of used/unused time slots, respectively\nomeqref {5.0}
+		\nompageref{18}
+  \item [{$\psi$}]\begingroup Scoring map, assigning scores to users\nomeqref {5.0}
+		\nompageref{18}
+  \item [{$\psi_{\mathrm{ul}}, \psi_{\mathrm{ll}}$}]\begingroup Upper/lower limit of score, respectively\nomeqref {5.0}
+		\nompageref{18}
+
+\end{thenomenclature}

@@ -1,0 +1,94 @@
+\chapter{Introduction}
+\label{ch:introduction}
+% Goal: 5 pages which tell why EE is important, how this thesis is structured and that it was done partly in the EARTH project.
+
+\section{Overview}
+In the first section of this chapter, it is argued why energy efficiency in wireless networks is an important research topic and what goals this thesis sets out to achieve. The second section introduces the contributions of this thesis towards achieving these goals. The third section outlines the thesis structure. In the last section, the \ac{EARTH} project is briefly introduced which provided laboratory results for the contents of Chapter~\ref{ch:device}.
+
+\section{Thesis Context}
+
+Since the emergence of mobile communications, both the number and the density of mobile devices have constantly increased~\cite{bzm0101}. They are predicted to rise further, fueled by innovations such as \ac{M2M} communication and the `Internet of Things'~\cite{wtjhj1101,book:bddrl0501}. It is predicted that a trillion devices will be connected to the Internet by the end of 2013~\cite{w1001}, with a growing share of these on mobile networks. Fig.~\ref{fig:trafficforecast} shows a forecast of the resulting mobile traffic until 2017. To serve this growing traffic load, the capacity, size and density of the infrastructure network are continually upgraded by network operators. 
+
+\acrodef{CAGR}[CAGR]{Compound Annual Growth Rate}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{\dir/img/mobiletrafficforecast}
+\caption[Mobile traffic forecast 2012-2017]{Mobile traffic forecast 2012-2017 with a \acl{CAGR} of 66\%~\cite[p.\,7]{c1301}.}
+\label{fig:trafficforecast}
+\end{figure}
+
+While for the past 20~years network capacity, reliability and deployment were the main concerns during these upgrades, new factors like rising energy prices, increasing consumer attention to the emission of \coo, the deployment of \acp{BS} in remote off-grid locations, and disaster recovery have come into play. To respond to these new factors, the energy efficiency of the current and future mobile networks needs to be enhanced. Delivery of bits through the cellular network has to become cheaper. \coo~emissions have to be reduced. \acp{BS} in remote locations must become self-sustaining. And maintaining connectivity after disasters is critical as the dependence of people and services on mobile communication in a disaster aftermath grows. 
+
+Lowering the power consumption of the \acp{BS} in cellular networks addresses all of these problems. It reduces the network operational cost and the required \coo~emission. Installing grid-independent \acp{BS} becomes more feasible when less power is needed for their operation. Furthermore, connectivity can be provided for a longer period of time in case of disastrous power interruptions.
+
+However, the causes of power consumption in \acp{BS} have not been studied in depth. Whether and by how much this power consumption can be lowered through operational modifications is an open problem. The answer to this problem affects the design of future transmission schemes and hardware. Once the most effective mechanisms for reducing power consumption are understood, they can be used to operate \acp{BS} with lower power consumption and, thus, with higher efficiency. Radio resource schedulers need to be developed which enhance the efficiency of operation in both individual \acp{BS} and a network of \acp{BS}.
+
+As such, this thesis sets out to achieve the following goals:
+\begin{itemize}
+ \item Identify how the power consumption of a \ac{BS} is comprised in terms of hardware components. Evaluate what operating parameters have the strongest effect on the \ac{BS} power consumption. Model this consumption in equations such that it can be reused and modified.
+ \item Identify promising operational techniques to reduce a \ac{BS}'s power consumption without affecting the \ac{QoS}. Generate resource schedulers which employ such techniques.
+ \item Understand how power consumption can be reduced in a network of multiple \acp{BS}. Provide solutions to address power consumption on the network level.
+\end{itemize}
+
+% How can we save power? How much can we save? What doesn't work? Any tricks found? What do we propose? How does it work? 
+
+\section{Thesis Contributions}
+This thesis contributes towards the enhancement of energy efficiency in wireless networks by reducing the power consumption of radio \ac{BS} through \ac{RRM} without affecting the \ac{QoS}. In particular, it provides the following contributions:
+\begin{itemize}
+ \item First, the power consumption of \ac{SOTA} \ac{LTE} \acp{BS} is studied and presented in detail. The number of antennas, the transmission power and the lowered consumption through \ac{DTX} are derived as the most relevant operating parameters. A general, practical power model for cellular \acp{BS} is constructed.
+ \item Second, the attainable power savings of power control, \ac{DTX} and \ac{AA} are quantified. The three techniques are jointly applied to a new energy efficient and spectrum efficient \ac{OFDMA} scheduler.
+ \item Third, the alignment of \ac{DTX} time slots between neighbouring \acp{BS} is identified as a multi-cell power-saving mechanism. Three alternative alignment schemes are studied with regard to their power consumption. The findings lead to a novel time slot alignment scheme which is shown to overcome the limitations of the other techniques.
+\end{itemize}
+
+\section{Thesis Structure}
+Chapter~\ref{ch:motivation} first addresses the issue why this work is concerned with the supply power consumption of cellular \acp{BS} in particular. Next, it provides an overview of Green Radio research alongside a review of relevant literature. Finally, a technical background for Chapters~\ref{ch:device}, \ref{ch:cell}, and \ref{ch:network} is provided about the topics \ac{LTE}, multi-carrier technology, multi-antenna transmission, convex optimization, and computer simulation techniques.
+
+Chapter~\ref{ch:device} begins with an analysis of the power consumption of a \ac{SOTA} \ac{BS} in order to identify opportunities for power saving. Each subcomponent is individually inspected and described with regard to its power consumption. A comprehensive \ac{BS} power model is established as the sum of each subcomponent's power consumption. Relevant and promising saving mechanisms are identified. A parameterized power model is proposed which encompasses these saving mechanisms and abstracts architectural details in favor of simplicity. Finally, an affine power model is derived, which is used through the remainder of this thesis. The affine mapping this model provides between transmission power and supply power is advantageous for its application in optimization.
+
+Chapter~\ref{ch:cell} applies the knowledge on \ac{BS} power consumption from Chapter~\ref{ch:device} by proposing power-saving \ac{RRM} mechanisms. On the basis of the affine power model, \ac{PC} and \ac{DTX} are studied. The potential of their joint optimization is identified. The power savings achieved by this method over the \ac{SOTA} are quantified in simulation. The joint optimization of \ac{PC}, \ac{DTX} and \ac{AA} is applied in a comprehensive scheduler for power-saving in \ac{OFDMA} downlink transmission within a cell.
+
+Chapter~\ref{ch:network} adds the consideration of intercell interference. When multiple \acp{BS} are considered, the use of sleep modes in each \ac{BS} results in significant fluctuations of interference. Constructive alignment of interference is proposed to exploit this effect and can be employed for a decrease of power consumption. To address multi-cell power saving resource allocation, \emph{distributed \ac{DTX} with memory} is proposed and compared to alternative alignment mechanisms. Network simulations are used to estimate achievable savings.
+
+Finally, conclusions of the above research, a discussion of limitations and an outlook for future research is provided in Chapter~\ref{ch:conclusion}.
+
+Regarding the format of this document: There are two non-overlapping bibliographies at the end of this document. One contains publications by the author of this thesis. References to these publications are made with alphabetic indices, such as `[a]' or `[b]'. References to other literature are written with numeric indices such as `[1]' or `[22]'. 
+
+\section{The \acs{EARTH} Project}
+\label{earthproject}
+
+\acrodef{FP}[FP]{Framework Programme}
+\acrodef{WINNER}[WINNER]{Wireless world INitiative NEw Radio}
+The research presented in Chapters~\ref{ch:device} and \ref{ch:cell} of this thesis has received funding and experimental data from the \acf{EARTH} project. Initiated by the European Union's \ac{FP} 7, the \ac{EARTH} project aligned cooperation between 15~industry and academic institutions towards the common goal of driving up energy efficiency in current and future cellular networks. The project lasted from January 2010 to June 2012. It was founded to work on 
+\begin{itemize}
+\item deployment strategies,
+\item network architectures, 
+\item network management,
+\item adaptation to load variations with time,
+\item innovative component designs with energy efficient adaptive operating points,
+\item and new radio and network resource management protocols for multi-cell cooperative networking.
+\end{itemize}
+
+% \begin{figure}
+% \centering
+% \includegraphics[height=20mm]{\dir/img/earth_logo_green_small.jpg}
+% \caption[The logo of the EARTH project]{The logo of the EARTH project.}
+% \label{fig:6}
+% \end{figure}
+
+The most prominent outcomes of the project were
+\begin{itemize}
+ \item the cellular network life cycle analysis~\cite{fmbf1001},
+ \item the energy efficiency evaluation framework~\cite{aggsoisgd1101,std:earthd23}, 
+ \item the \ac{BS} power model~\cite{ddgfahwsr1201_own},
+ \item hardware implementations of \acp{PA} with improved dynamics~\cite{gfwem1101} and a sleep mode enabled small cell~\cite{std:earthd43},
+ \item and numerous individual techniques which reduce the power consumption of cellular networks such as the ones presented in Chapter~\ref{ch:cell}~\cite{std:earthd33_own}.
+\end{itemize}
+
+% \begin{figure}
+% \centering
+% \includegraphics[height=40mm]{\dir/img/testbed_small.jpg}
+% \caption[The EARTH small cell testbed]{The EARTH small cell testbed.}
+% \label{fig:7}
+% \end{figure}
+
+All project deliverables are available on the project website for reference~\cite{01b}.
