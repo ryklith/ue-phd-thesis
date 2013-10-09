@@ -5,7 +5,7 @@ This a LaTeX template for a PhD thesis at the University of Edinburgh. When I wa
 
 Contents
 =============
-* In line with university requirements (check whether your department needs anything exotic)
+* Settings in line with university requirements (check whether your department needs anything exotic)
 * UE title page with university crest
 * Declaration of originality
 * Typical structure (Acknowledgments, ToC, ...)
@@ -17,13 +17,14 @@ Contents
 * Two separately indexed bibliographies (one for own publications, one for literature)
 * PDF inclusion in appendix
 
-
 Notes
 =========
-* I have left only text snippets. Still the output has 57 pages. Imagine doing that in MS word...
-* I have used Kile on Ubuntu to write it. But any tool should do.
-* The original README from Magnus Hagdorn is included as README.orig
-* 
+* I have left only text snippets. Yet, the output is already 57 pages. Imagine doing that in MS word...
+* I used Kile on Ubuntu to write it. But any tool should do.
+* The original README from Magnus Hagdorn is included as README.orig.
+* I used JabRef to maintain my references.
+* Use ed_thesis.tex to build a pdf for paper submission with 1.5 line spacing.
+* Use nicepdfthesis.tex to build a pdf with hyperlinks.
 
 General advice
 =============
@@ -32,7 +33,6 @@ General advice
 * Force yourself to get used to defining acronyms, nomenclature, urls, labels, etc the moment you mention them. It saves a lot of time later.
 * Generate and store all your graphical elements as eps and pdf. This keeps you flexible with regard to a latex or pdflatex build.
 * Use packages, not workarounds
-* 
 
 Feedback
 ================
