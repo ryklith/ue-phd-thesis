@@ -37,4 +37,4 @@ General advice
 
 Feedback
 ================
-I hope this gets you started more quickly than me. My actual thesis is available [here](www.hltk.mp). Contact me at h.holtkamp@gmail.com
+I hope this gets you started more quickly than me. My actual thesis is available [here](http://www.holtka.mp). Contact me at h.holtkamp@gmail.com
