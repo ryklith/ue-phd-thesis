@@ -37,6 +37,6 @@ General advice
 
 Feedback
 ================
-I hope this gets you started more quickly than me. My actual thesis is available [here](http://www.holtka.mp). Contact me at h.holtkamp@gmail.com
+I hope this gets you started more quickly than me. My final compiled thesis is available as a sample output [here](http://www.holtka.mp). Contact me at h.holtkamp@gmail.com
 
 I was made aware of an alternative Edinburgh University PhD template. Check it out at: https://www.wiki.ed.ac.uk/display/iesscicomp/Engineering+Latex+Thesis+Template
