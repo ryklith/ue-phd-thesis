@@ -25,7 +25,7 @@ Notes
 * I used JabRef to maintain my references.
 * Use ed_thesis.tex to build a pdf for paper submission with 1.5 line spacing.
 * Use nicepdfthesis.tex to build a pdf with hyperlinks.
-* The cascaded chapter folder structure is on purpose for building individual chapters.
+* The cascaded chapter folder structure is on purpose. It enables building individual chapters standalone.
 
 General advice
 =============
@@ -38,3 +38,5 @@ General advice
 Feedback
 ================
 I hope this gets you started more quickly than me. My actual thesis is available [here](http://www.holtka.mp). Contact me at h.holtkamp@gmail.com
+
+I was made aware of an alternative Edinburgh University PhD template. Check it out at: https://www.wiki.ed.ac.uk/display/iesscicomp/Engineering+Latex+Thesis+Template
